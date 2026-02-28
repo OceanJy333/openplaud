@@ -66,20 +66,20 @@ import type { SettingsSection } from "@/types/settings";
 const settingsNav = [
     { name: "AI", id: "providers" as SettingsSection, icon: Bot },
     {
-        name: "Transcription",
+        name: "转录",
         id: "transcription" as SettingsSection,
         icon: FileText,
     },
-    { name: "Sync", id: "sync" as SettingsSection, icon: RefreshCw },
-    { name: "Playback", id: "playback" as SettingsSection, icon: Play },
-    { name: "Display", id: "display" as SettingsSection, icon: Monitor },
+    { name: "同步", id: "sync" as SettingsSection, icon: RefreshCw },
+    { name: "播放", id: "playback" as SettingsSection, icon: Play },
+    { name: "显示", id: "display" as SettingsSection, icon: Monitor },
     {
-        name: "Notifications",
+        name: "通知",
         id: "notifications" as SettingsSection,
         icon: Bell,
     },
-    { name: "Export/Backup", id: "export" as SettingsSection, icon: Download },
-    { name: "Storage", id: "storage" as SettingsSection, icon: HardDrive },
+    { name: "导出/备份", id: "export" as SettingsSection, icon: Download },
+    { name: "存储", id: "storage" as SettingsSection, icon: HardDrive },
 ];
 
 const STORAGE_KEY = "settings-last-section";
@@ -218,10 +218,9 @@ export function SettingsDialog({
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="overflow-hidden p-0 md:max-h-[600px] md:max-w-[800px] lg:max-w-[900px]">
-                <DialogTitle className="sr-only">Settings</DialogTitle>
+                <DialogTitle className="sr-only">设置</DialogTitle>
                 <DialogDescription className="sr-only">
-                    Customize your settings here. Use arrow keys to navigate
-                    sections, Enter or Space to select, and Escape to close.
+                    在此自定义设置。使用方向键导航，回车或空格选择，Esc 关闭。
                 </DialogDescription>
                 <SidebarProvider className="items-start">
                     <Sidebar className="hidden md:flex">
@@ -229,14 +228,14 @@ export function SettingsDialog({
                             <div className="flex items-center gap-2 px-4 py-4 border-b">
                                 <SettingsIcon className="w-5 h-5" />
                                 <h2 className="font-semibold text-lg">
-                                    Settings
+                                    设置
                                 </h2>
                             </div>
                             <SidebarGroup>
                                 <SidebarGroupContent>
                                     <SidebarMenu
                                         role="navigation"
-                                        aria-label="Settings sections"
+                                        aria-label="设置分区"
                                     >
                                         {settingsNav.map((item, index) => (
                                             <SidebarMenuItem key={item.id}>
@@ -259,7 +258,7 @@ export function SettingsDialog({
                                                             item.id,
                                                         )
                                                     }
-                                                    aria-label={`${item.name} settings`}
+                                                    aria-label={`${item.name}设置`}
                                                     aria-current={
                                                         activeSection ===
                                                         item.id
@@ -289,14 +288,14 @@ export function SettingsDialog({
                                     <BreadcrumbList>
                                         <BreadcrumbItem className="hidden md:block">
                                             <BreadcrumbPage>
-                                                Settings
+                                                设置
                                             </BreadcrumbPage>
                                         </BreadcrumbItem>
                                         <BreadcrumbSeparator className="hidden md:block" />
                                         <BreadcrumbItem>
                                             <BreadcrumbPage>
                                                 {activeNavItem?.name ||
-                                                    "Settings"}
+                                                    "设置"}
                                             </BreadcrumbPage>
                                         </BreadcrumbItem>
                                     </BreadcrumbList>
@@ -313,10 +312,10 @@ export function SettingsDialog({
                                 >
                                     <SelectTrigger
                                         className="w-[180px]"
-                                        aria-label="Select settings section"
+                                        aria-label="选择设置分区"
                                     >
                                         <SelectValue>
-                                            {activeNavItem?.name || "Settings"}
+                                            {activeNavItem?.name || "设置"}
                                         </SelectValue>
                                     </SelectTrigger>
                                     <SelectContent>

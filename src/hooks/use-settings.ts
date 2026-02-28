@@ -16,11 +16,11 @@ export function useSettings() {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to save settings");
+                throw new Error("保存设置失败");
             }
         } catch {
-            toast.error("Failed to save settings");
-            throw new Error("Failed to save settings");
+            toast.error("保存设置失败");
+            throw new Error("保存设置失败");
         } finally {
             setIsSavingSettings(false);
         }

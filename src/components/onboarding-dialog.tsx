@@ -98,7 +98,7 @@ export function OnboardingDialog({
 
     const handlePlaudConnect = async () => {
         if (!bearerToken.trim()) {
-            toast.error("Please enter your bearer token");
+            toast.error("请输入 Bearer Token");
             return;
         }
 
@@ -112,17 +112,17 @@ export function OnboardingDialog({
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || "Failed to connect");
+                throw new Error(error.error || "连接失败");
             }
 
-            toast.success("Plaud device connected");
+            toast.success("Plaud 设备已连接");
             setHasPlaudConnection(true);
             setBearerToken("");
         } catch (error) {
             toast.error(
                 error instanceof Error
                     ? error.message
-                    : "Failed to connect to Plaud",
+                    : "连接 Plaud 失败",
             );
         } finally {
             setIsLoading(false);
@@ -148,7 +148,7 @@ export function OnboardingDialog({
             onOpenChange(false);
             router.refresh();
         } catch {
-            toast.error("Failed to complete onboarding");
+            toast.error("完成引导设置失败");
         }
     };
 
@@ -207,7 +207,7 @@ export function OnboardingDialog({
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto sm:max-w-[600px]">
                 <DialogHeader>
                     <DialogTitle className="text-2xl" hidden>
-                        Welcome to OpenPlaud
+                        欢迎使用 OpenPlaud
                     </DialogTitle>
                 </DialogHeader>
 
@@ -219,12 +219,10 @@ export function OnboardingDialog({
                                     <Mic className="w-8 h-8 text-primary" />
                                 </div>
                                 <h3 className="text-xl font-semibold">
-                                    Your AI-Powered Recording Hub
+                                    AI 驱动的录音管理中心
                                 </h3>
                                 <p className="text-muted-foreground">
-                                    OpenPlaud helps you manage, transcribe, and
-                                    enhance your Plaud recordings with AI. Let's
-                                    set up your account.
+                                    OpenPlaud 帮助您管理、转录和增强 Plaud 录音。让我们开始设置您的账户。
                                 </p>
                             </div>
 
@@ -233,13 +231,12 @@ export function OnboardingDialog({
                                     <CardHeader>
                                         <CardTitle className="text-base flex items-center gap-2">
                                             <Mic className="w-4 h-4" />
-                                            Connect Your Device
+                                            连接设备
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent>
                                         <p className="text-sm text-muted-foreground">
-                                            Link your Plaud device to start
-                                            syncing recordings automatically
+                                            连接 Plaud 设备，自动同步录音
                                         </p>
                                     </CardContent>
                                 </Card>
@@ -248,13 +245,12 @@ export function OnboardingDialog({
                                     <CardHeader>
                                         <CardTitle className="text-base flex items-center gap-2">
                                             <Bot className="w-4 h-4" />
-                                            Set Up AI Provider
+                                            配置 AI 服务商
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent>
                                         <p className="text-sm text-muted-foreground">
-                                            Configure an AI provider for
-                                            automatic transcriptions
+                                            配置 AI 服务商以启用自动转录
                                         </p>
                                     </CardContent>
                                 </Card>
@@ -263,13 +259,12 @@ export function OnboardingDialog({
                                     <CardHeader>
                                         <CardTitle className="text-base flex items-center gap-2">
                                             <Sparkles className="w-4 h-4" />
-                                            Start Recording
+                                            开始录音
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent>
                                         <p className="text-sm text-muted-foreground">
-                                            You're all set! Start recording and
-                                            let AI do the work
+                                            一切就绪！开始录音，让 AI 为您工作
                                         </p>
                                     </CardContent>
                                 </Card>
@@ -284,11 +279,10 @@ export function OnboardingDialog({
                                     <Mic className="w-8 h-8 text-primary" />
                                 </div>
                                 <h3 className="text-xl font-semibold">
-                                    Connect Your Plaud Device
+                                    连接 Plaud 设备
                                 </h3>
                                 <p className="text-muted-foreground">
-                                    Enter your Plaud bearer token to sync
-                                    recordings automatically
+                                    输入 Plaud Bearer Token 以自动同步录音
                                 </p>
                             </div>
 
@@ -299,11 +293,10 @@ export function OnboardingDialog({
                                             <CheckCircle2 className="w-5 h-5 text-primary" />
                                             <div className="flex-1">
                                                 <p className="font-medium">
-                                                    Device Connected
+                                                    设备已连接
                                                 </p>
                                                 <p className="text-sm text-muted-foreground">
-                                                    Your Plaud device is already
-                                                    connected
+                                                    您的 Plaud 设备已连接
                                                 </p>
                                             </div>
                                             <Button
@@ -313,7 +306,7 @@ export function OnboardingDialog({
                                                     setHasPlaudConnection(false)
                                                 }
                                             >
-                                                Reconnect
+                                                重新连接
                                             </Button>
                                         </div>
                                     </CardContent>
@@ -323,7 +316,7 @@ export function OnboardingDialog({
                                     <CardContent className="pt-6 space-y-4">
                                         <div className="space-y-2">
                                             <Label htmlFor="api-server">
-                                                API Server
+                                                API 服务器
                                             </Label>
                                             <Select
                                                 value={server}
@@ -337,7 +330,7 @@ export function OnboardingDialog({
                                                     id="api-server"
                                                     disabled={isLoading}
                                                 >
-                                                    <SelectValue placeholder="Select API server" />
+                                                    <SelectValue placeholder="选择 API 服务器" />
                                                 </SelectTrigger>
                                                 <SelectContent className="z-[200]">
                                                     {(
@@ -366,12 +359,12 @@ export function OnboardingDialog({
                                         </div>
                                         <div className="space-y-2">
                                             <Label htmlFor="bearer-token">
-                                                Bearer Token
+                                                Bearer Token（授权令牌）
                                             </Label>
                                             <Input
                                                 id="bearer-token"
                                                 type="password"
-                                                placeholder="Enter your Plaud bearer token"
+                                                placeholder="输入您的 Plaud Bearer Token"
                                                 value={bearerToken}
                                                 onChange={(e) =>
                                                     setBearerToken(
@@ -381,12 +374,7 @@ export function OnboardingDialog({
                                                 disabled={isLoading}
                                             />
                                             <p className="text-xs text-muted-foreground">
-                                                Open plaud.ai in a browser, log
-                                                in, open DevTools (F12) →
-                                                Network tab, refresh and copy
-                                                the Authorization header value
-                                                from any request to the Plaud
-                                                API server.
+                                                在浏览器中打开 plaud.ai 并登录，按 F12 打开开发者工具 → 网络标签页，刷新页面后从任意 Plaud API 请求中复制 Authorization 头的值。
                                             </p>
                                         </div>
 
@@ -398,8 +386,8 @@ export function OnboardingDialog({
                                             className="w-full"
                                         >
                                             {isLoading
-                                                ? "Connecting..."
-                                                : "Connect Device"}
+                                                ? "连接中..."
+                                                : "连接设备"}
                                         </Button>
                                     </CardContent>
                                 </Card>
@@ -414,11 +402,10 @@ export function OnboardingDialog({
                                     <Bot className="w-8 h-8 text-primary" />
                                 </div>
                                 <h3 className="text-xl font-semibold">
-                                    Set Up AI Provider
+                                    配置 AI 服务商
                                 </h3>
                                 <p className="text-muted-foreground">
-                                    Configure an AI provider to enable automatic
-                                    transcriptions
+                                    配置 AI 服务商以启用自动转录
                                 </p>
                             </div>
 
@@ -429,11 +416,10 @@ export function OnboardingDialog({
                                             <CheckCircle2 className="w-5 h-5 text-primary" />
                                             <div className="flex-1">
                                                 <p className="font-medium">
-                                                    AI Provider Configured
+                                                    AI 服务商已配置
                                                 </p>
                                                 <p className="text-sm text-muted-foreground">
-                                                    You already have an AI
-                                                    provider set up
+                                                    您已配置 AI 服务商
                                                 </p>
                                             </div>
                                         </div>
@@ -443,9 +429,7 @@ export function OnboardingDialog({
                                 <Card className="gap-0 py-4">
                                     <CardContent className="pt-6 space-y-4">
                                         <p className="text-sm text-muted-foreground">
-                                            You can set up an AI provider later
-                                            in Settings. This enables automatic
-                                            transcription of your recordings.
+                                            您可以稍后在设置中配置 AI 服务商。配置后可启用录音自动转录。
                                         </p>
                                         <Button
                                             onClick={() => {
@@ -456,7 +440,7 @@ export function OnboardingDialog({
                                             variant="outline"
                                             className="w-full"
                                         >
-                                            Go to Settings
+                                            前往设置
                                         </Button>
                                     </CardContent>
                                 </Card>
@@ -471,11 +455,10 @@ export function OnboardingDialog({
                                     <CheckCircle2 className="w-8 h-8 text-primary" />
                                 </div>
                                 <h3 className="text-xl font-semibold">
-                                    You're All Set!
+                                    设置完成！
                                 </h3>
                                 <p className="text-muted-foreground">
-                                    Start recording and let OpenPlaud handle the
-                                    rest
+                                    开始录音，剩下的交给 OpenPlaud
                                 </p>
                             </div>
 
@@ -486,12 +469,10 @@ export function OnboardingDialog({
                                             <CheckCircle2 className="w-5 h-5 text-primary mt-0.5" />
                                             <div>
                                                 <p className="font-medium">
-                                                    Recordings sync
-                                                    automatically
+                                                    录音自动同步
                                                 </p>
                                                 <p className="text-sm text-muted-foreground">
-                                                    Your Plaud device will sync
-                                                    recordings in the background
+                                                    Plaud 设备将在后台自动同步录音
                                                 </p>
                                             </div>
                                         </div>
@@ -499,12 +480,10 @@ export function OnboardingDialog({
                                             <CheckCircle2 className="w-5 h-5 text-primary mt-0.5" />
                                             <div>
                                                 <p className="font-medium">
-                                                    AI-powered transcriptions
+                                                    AI 智能转录
                                                 </p>
                                                 <p className="text-sm text-muted-foreground">
-                                                    Set up an AI provider to
-                                                    transcribe recordings
-                                                    automatically
+                                                    配置 AI 服务商以自动转录录音
                                                 </p>
                                             </div>
                                         </div>
@@ -512,11 +491,10 @@ export function OnboardingDialog({
                                             <CheckCircle2 className="w-5 h-5 text-primary mt-0.5" />
                                             <div>
                                                 <p className="font-medium">
-                                                    Customize your experience
+                                                    个性化设置
                                                 </p>
                                                 <p className="text-sm text-muted-foreground">
-                                                    Adjust settings anytime from
-                                                    the Settings menu
+                                                    随时通过设置菜单调整配置
                                                 </p>
                                             </div>
                                         </div>
@@ -531,7 +509,7 @@ export function OnboardingDialog({
                             {getPrevStep() && (
                                 <Button variant="outline" onClick={handlePrev}>
                                     <ArrowLeft className="w-4 h-4 mr-2" />
-                                    Previous
+                                    上一步
                                 </Button>
                             )}
                         </div>
@@ -565,18 +543,18 @@ export function OnboardingDialog({
                                             handleSkipAiProvider();
                                     }}
                                 >
-                                    Skip
+                                    跳过
                                 </Button>
                             )}
                             {step === "complete" ? (
                                 <Button onClick={handleComplete}>
-                                    Get Started
+                                    开始使用
                                     <ArrowRight className="w-4 h-4 ml-2" />
                                 </Button>
                             ) : (
                                 getNextStep() && (
                                     <Button onClick={handleNext}>
-                                        Next
+                                        下一步
                                         <ArrowRight className="w-4 h-4 ml-2" />
                                     </Button>
                                 )

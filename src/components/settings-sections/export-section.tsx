@@ -16,17 +16,17 @@ import { Switch } from "@/components/ui/switch";
 import { useSettings } from "@/hooks/use-settings";
 
 const exportFormatOptions = [
-    { label: "JSON", value: "json", description: "Structured data format" },
-    { label: "TXT", value: "txt", description: "Plain text format" },
-    { label: "SRT", value: "srt", description: "Subtitle format" },
-    { label: "VTT", value: "vtt", description: "WebVTT subtitle format" },
+    { label: "JSON", value: "json", description: "结构化数据格式" },
+    { label: "TXT", value: "txt", description: "纯文本格式" },
+    { label: "SRT", value: "srt", description: "字幕格式" },
+    { label: "VTT", value: "vtt", description: "WebVTT 字幕格式" },
 ];
 
 const backupFrequencyOptions = [
-    { label: "Never", value: "never" },
-    { label: "Daily", value: "daily" },
-    { label: "Weekly", value: "weekly" },
-    { label: "Monthly", value: "monthly" },
+    { label: "从不", value: "never" },
+    { label: "每天", value: "daily" },
+    { label: "每周", value: "weekly" },
+    { label: "每月", value: "monthly" },
 ];
 
 interface ExportSectionProps {
@@ -104,7 +104,7 @@ export function ExportSection({ onReRunOnboarding }: ExportSectionProps) {
                 if (typeof prev === "string" || prev === null)
                     setBackupFrequency(prev);
             }
-            toast.error("Failed to save settings. Changes reverted.");
+            toast.error("保存设置失败，已恢复更改。");
         }
     };
 
@@ -130,9 +130,9 @@ export function ExportSection({ onReRunOnboarding }: ExportSectionProps) {
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
 
-            toast.success("Export completed");
+            toast.success("导出完成");
         } catch {
-            toast.error("Failed to export recordings");
+            toast.error("导出录音失败");
         } finally {
             setIsExporting(false);
         }
@@ -158,9 +158,9 @@ export function ExportSection({ onReRunOnboarding }: ExportSectionProps) {
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
 
-            toast.success("Backup created");
+            toast.success("备份已创建");
         } catch {
-            toast.error("Failed to create backup");
+            toast.error("创建备份失败");
         } finally {
             setIsBackingUp(false);
         }
@@ -178,11 +178,11 @@ export function ExportSection({ onReRunOnboarding }: ExportSectionProps) {
         <div className="space-y-6">
             <h2 className="text-lg font-semibold flex items-center gap-2">
                 <Download className="w-5 h-5" />
-                Export/Backup Settings
+                导出/备份设置
             </h2>
             <div className="space-y-4">
                 <div className="space-y-2">
-                    <Label htmlFor="export-format">Default export format</Label>
+                    <Label htmlFor="export-format">默认导出格式</Label>
                     <Select
                         value={defaultExportFormat}
                         onValueChange={(value) => {
@@ -222,14 +222,14 @@ export function ExportSection({ onReRunOnboarding }: ExportSectionProps) {
                     <div className="space-y-0.5 flex-1">
                         <div className="flex items-center gap-2">
                             <Label htmlFor="auto-export" className="text-base">
-                                Auto-export new recordings
+                                自动导出新录音
                             </Label>
                             <span className="text-xs bg-muted px-2 py-0.5 rounded">
-                                Coming soon
+                                即将推出
                             </span>
                         </div>
                         <p className="text-sm text-muted-foreground">
-                            Automatically export recordings when they are synced
+                            同步录音后自动导出
                         </p>
                     </div>
                     <Switch
@@ -248,10 +248,10 @@ export function ExportSection({ onReRunOnboarding }: ExportSectionProps) {
                 <div className="space-y-2 opacity-60">
                     <div className="flex items-center gap-2">
                         <Label htmlFor="backup-frequency">
-                            Backup frequency
+                            备份频率
                         </Label>
                         <span className="text-xs bg-muted px-2 py-0.5 rounded">
-                            Coming soon
+                            即将推出
                         </span>
                     </div>
                     <Select
@@ -271,7 +271,7 @@ export function ExportSection({ onReRunOnboarding }: ExportSectionProps) {
                                     (opt) =>
                                         opt.value ===
                                         (backupFrequency || "never"),
-                                )?.label || "Never"}
+                                )?.label || "从不"}
                             </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
@@ -286,14 +286,14 @@ export function ExportSection({ onReRunOnboarding }: ExportSectionProps) {
                         </SelectContent>
                     </Select>
                     <p className="text-xs text-muted-foreground">
-                        How often to automatically create backups
+                        自动创建备份的频率
                     </p>
                 </div>
             </div>
 
             <div className="pt-4 border-t space-y-3">
                 <div className="space-y-2">
-                    <Label className="text-base">Manual Actions</Label>
+                    <Label className="text-base">手动操作</Label>
                     <Button
                         onClick={async () => {
                             try {
@@ -308,17 +308,17 @@ export function ExportSection({ onReRunOnboarding }: ExportSectionProps) {
                                 });
                                 onReRunOnboarding?.();
                             } catch {
-                                toast.error("Failed to reset onboarding");
+                                toast.error("重置引导失败");
                             }
                         }}
                         variant="outline"
                         className="w-full"
                     >
                         <RefreshCw className="w-4 h-4 mr-2" />
-                        Re-run Onboarding
+                        重新引导
                     </Button>
                     <p className="text-xs text-muted-foreground">
-                        Reset onboarding to see it again on your next visit
+                        重置引导流程，下次访问时重新显示
                     </p>
                     <div className="flex gap-2 pt-2">
                         <Button
@@ -330,12 +330,12 @@ export function ExportSection({ onReRunOnboarding }: ExportSectionProps) {
                             {isExporting ? (
                                 <>
                                     <div className="animate-spin w-4 h-4 mr-2 border-2 border-primary border-t-transparent rounded-full" />
-                                    Exporting...
+                                    导出中...
                                 </>
                             ) : (
                                 <>
                                     <Download className="w-4 h-4 mr-2" />
-                                    Export All
+                                    导出全部
                                 </>
                             )}
                         </Button>
@@ -348,12 +348,12 @@ export function ExportSection({ onReRunOnboarding }: ExportSectionProps) {
                             {isBackingUp ? (
                                 <>
                                     <div className="animate-spin w-4 h-4 mr-2 border-2 border-primary border-t-transparent rounded-full" />
-                                    Creating...
+                                    创建中...
                                 </>
                             ) : (
                                 <>
                                     <Download className="w-4 h-4 mr-2" />
-                                    Create Backup
+                                    创建备份
                                 </>
                             )}
                         </Button>

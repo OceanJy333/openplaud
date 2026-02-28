@@ -66,7 +66,7 @@ const providerPresets = [
     {
         name: "Custom",
         baseUrl: "",
-        placeholder: "Your API key",
+        placeholder: "您的 API Key",
         defaultModel: "",
     },
 ];
@@ -97,7 +97,7 @@ export function AddProviderDialog({
         e.preventDefault();
 
         if (!provider || !apiKey) {
-            toast.error("Provider and API key are required");
+            toast.error("请填写服务商和 API Key");
             return;
         }
 
@@ -116,9 +116,9 @@ export function AddProviderDialog({
                 }),
             });
 
-            if (!response.ok) throw new Error("Failed to add provider");
+            if (!response.ok) throw new Error("添加服务商失败");
 
-            toast.success("AI provider added successfully");
+            toast.success("AI 服务商已添加");
             onSuccess();
             onOpenChange(false);
 
@@ -129,7 +129,7 @@ export function AddProviderDialog({
             setIsDefaultTranscription(false);
             setIsDefaultEnhancement(false);
         } catch {
-            toast.error("Failed to add AI provider");
+            toast.error("添加 AI 服务商失败");
         } finally {
             setIsLoading(false);
         }
@@ -141,18 +141,18 @@ export function AddProviderDialog({
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="max-w-md">
                 <DialogHeader>
-                    <DialogTitle>Add AI Provider</DialogTitle>
+                    <DialogTitle>添加 AI 服务商</DialogTitle>
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                        <Label>Provider</Label>
+                        <Label>服务商</Label>
                         <Select
                             value={provider}
                             onValueChange={handleProviderChange}
                         >
                             <SelectTrigger>
-                                <SelectValue placeholder="Select a provider" />
+                                <SelectValue placeholder="选择服务商" />
                             </SelectTrigger>
                             <SelectContent>
                                 {providerPresets.map((preset) => (
@@ -173,7 +173,7 @@ export function AddProviderDialog({
                             id="apiKey"
                             type="password"
                             placeholder={
-                                selectedPreset?.placeholder || "Your API key"
+                                selectedPreset?.placeholder || "您的 API Key"
                             }
                             value={apiKey}
                             onChange={(e) => setApiKey(e.target.value)}
@@ -183,7 +183,7 @@ export function AddProviderDialog({
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="baseUrl">Base URL (Optional)</Label>
+                        <Label htmlFor="baseUrl">Base URL（可选）</Label>
                         <Input
                             id="baseUrl"
                             type="text"
@@ -197,7 +197,7 @@ export function AddProviderDialog({
 
                     <div className="space-y-2">
                         <Label htmlFor="defaultModel">
-                            Default Model (Optional)
+                            默认模型（可选）
                         </Label>
                         <Input
                             id="defaultModel"
@@ -220,7 +220,7 @@ export function AddProviderDialog({
                                 }
                                 disabled={isLoading}
                             />
-                            <span>Use for transcription</span>
+                            <span>用于转录</span>
                         </label>
                         <label className="flex items-center gap-2 cursor-pointer">
                             <input
@@ -231,7 +231,7 @@ export function AddProviderDialog({
                                 }
                                 disabled={isLoading}
                             />
-                            <span>Use for AI enhancements</span>
+                            <span>用于 AI 增强</span>
                         </label>
                     </Panel>
 
@@ -242,7 +242,7 @@ export function AddProviderDialog({
                             disabled={isLoading}
                             className="flex-1"
                         >
-                            Cancel
+                            取消
                         </MetalButton>
                         <MetalButton
                             type="submit"
@@ -250,7 +250,7 @@ export function AddProviderDialog({
                             disabled={isLoading}
                             className="flex-1"
                         >
-                            {isLoading ? "Adding..." : "Add Provider"}
+                            {isLoading ? "添加中..." : "添加服务商"}
                         </MetalButton>
                     </div>
                 </form>

@@ -85,7 +85,7 @@ export function StorageSection() {
                 if (typeof prev === "number" || prev === null)
                     setRetentionDays(prev);
             }
-            toast.error("Failed to save settings. Changes reverted.");
+            toast.error("保存设置失败，已恢复更改。");
         }
     };
 
@@ -101,20 +101,20 @@ export function StorageSection() {
         <div className="space-y-6">
             <h2 className="text-lg font-semibold flex items-center gap-2">
                 <HardDrive className="w-5 h-5" />
-                Storage
+                存储
             </h2>
             <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                    <span className="text-muted-foreground">Type</span>
+                    <span className="text-muted-foreground">类型</span>
                     <span className="font-medium">
-                        {storageUsage?.storageType || "Local"}
+                        {storageUsage?.storageType || "本地"}
                     </span>
                 </div>
                 {storageUsage && (
                     <>
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">
-                                Total Size
+                                总大小
                             </span>
                             <span className="font-medium">
                                 {storageUsage.totalSizeMB} MB
@@ -122,7 +122,7 @@ export function StorageSection() {
                         </div>
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">
-                                Recordings
+                                录音数
                             </span>
                             <span className="font-medium">
                                 {storageUsage.totalRecordings}
@@ -131,8 +131,7 @@ export function StorageSection() {
                     </>
                 )}
                 <p className="text-xs text-muted-foreground pt-2 border-t">
-                    Storage is configured at the instance level via environment
-                    variables.
+                    存储通过实例级别的环境变量配置。
                 </p>
             </div>
 
@@ -140,11 +139,10 @@ export function StorageSection() {
                 <div className="flex items-center justify-between">
                     <div className="space-y-0.5 flex-1">
                         <Label htmlFor="auto-delete" className="text-base">
-                            Auto-delete old recordings
+                            自动删除旧录音
                         </Label>
                         <p className="text-sm text-muted-foreground">
-                            Automatically delete recordings older than the
-                            retention period
+                            自动删除超过保留期限的录音
                         </p>
                     </div>
                     <Switch
@@ -167,7 +165,7 @@ export function StorageSection() {
                 {autoDeleteRecordings && (
                     <div className="space-y-2">
                         <Label htmlFor="retention-days">
-                            Retention period (days)
+                            保留期限（天）
                         </Label>
                         <Input
                             id="retention-days"
@@ -201,8 +199,7 @@ export function StorageSection() {
                             placeholder="30"
                         />
                         <p className="text-xs text-muted-foreground">
-                            Recordings older than this will be automatically
-                            deleted (1-365 days)
+                            超过此期限的录音将被自动删除（1-365 天）
                         </p>
                     </div>
                 )}

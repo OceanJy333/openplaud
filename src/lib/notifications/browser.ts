@@ -38,20 +38,20 @@ export function showBrowserNotification(
 
 export function showNewRecordingNotification(count: number): void {
     const title =
-        count === 1 ? "New recording synced" : `${count} new recordings synced`;
+        count === 1 ? "已同步新录音" : `已同步 ${count} 条新录音`;
 
     showBrowserNotification(title, {
         body:
             count === 1
-                ? "A new recording has been synced from your Plaud device"
-                : `${count} new recordings have been synced from your Plaud device`,
+                ? "已从 Plaud 设备同步一条新录音"
+                : `已从 Plaud 设备同步 ${count} 条新录音`,
         tag: "new-recording",
     });
 }
 
 export function showSyncCompleteNotification(): void {
-    showBrowserNotification("Sync complete", {
-        body: "Your recordings have been synced successfully",
+    showBrowserNotification("同步完成", {
+        body: "录音已成功同步",
         tag: "sync-complete",
     });
 }

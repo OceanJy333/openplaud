@@ -36,6 +36,18 @@ export function Workstation({ recordings, transcriptions }: WorkstationProps) {
     const [currentRecording, setCurrentRecording] = useState<Recording | null>(
         recordings.length > 0 ? recordings[0] : null,
     );
+
+    // 当 recordings prop 更新时（如同步后 router.refresh），同步选中状态
+    useEffect(() => {
+        if (recordings.length > 0 && !currentRecording) {
+            setCurrentRecording(recordings[0]);
+        }
+        // 如果当前选中的录音已不在列表中，重置为第一条
+        if (currentRecording && !recordings.find((r) => r.id === currentRecording.id)) {
+            setCurrentRecording(recordings[0] || null);
+        }
+    }, [recordings, currentRecording]);
+
     const [isTranscribing, setIsTranscribing] = useState(false);
     const [settingsOpen, setSettingsOpen] = useState(false);
     const [onboardingOpen, setOnboardingOpen] = useState(false);
@@ -110,10 +122,10 @@ export function Workstation({ recordings, transcriptions }: WorkstationProps) {
             if (syncSettings?.syncNotifications !== false) {
                 if (newRecordings > 0) {
                     toast.success(
-                        `Synced ${newRecordings} new recording${newRecordings !== 1 ? "s" : ""}`,
+                        `已同步 ${newRecordings} 条新录音`,
                     );
                 } else {
-                    toast.success("Sync complete - no new recordings");
+                    toast.success("同步完成 - 无新录音");
                 }
             }
 
@@ -161,14 +173,14 @@ export function Workstation({ recordings, transcriptions }: WorkstationProps) {
             );
 
             if (response.ok) {
-                toast.success("Transcription complete");
+                toast.success("转录完成");
                 router.refresh();
             } else {
                 const error = await response.json();
-                toast.error(error.error || "Transcription failed");
+                toast.error(error.error || "转录失败");
             }
         } catch {
-            toast.error("Failed to transcribe recording");
+            toast.error("录音转录失败");
         } finally {
             setIsTranscribing(false);
         }
@@ -180,10 +192,9 @@ export function Workstation({ recordings, transcriptions }: WorkstationProps) {
                 <div className="container mx-auto px-4 py-6 max-w-7xl">
                     <div className="flex items-center justify-between mb-6">
                         <div>
-                            <h1 className="text-3xl font-bold">Recordings</h1>
+                            <h1 className="text-3xl font-bold">录音列表</h1>
                             <p className="text-muted-foreground text-sm mt-1">
-                                {recordings.length} recording
-                                {recordings.length !== 1 ? "s" : ""}
+                                共 {recordings.length} 条录音
                             </p>
                         </div>
                         <div className="flex items-center gap-3">
@@ -204,12 +215,12 @@ export function Workstation({ recordings, transcriptions }: WorkstationProps) {
                                 {isAutoSyncing ? (
                                     <>
                                         <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                                        Syncing...
+                                        同步中...
                                     </>
                                 ) : (
                                     <>
                                         <RefreshCw className="w-4 h-4 mr-2" />
-                                        Sync Device
+                                        同步设备
                                     </>
                                 )}
                             </Button>
@@ -228,11 +239,10 @@ export function Workstation({ recordings, transcriptions }: WorkstationProps) {
                             <CardContent className="flex flex-col items-center justify-center py-16">
                                 <Mic className="w-16 h-16 text-muted-foreground mb-4" />
                                 <h3 className="text-lg font-semibold mb-2">
-                                    No recordings yet
+                                    暂无录音
                                 </h3>
                                 <p className="text-muted-foreground text-sm mb-6 text-center max-w-md">
-                                    Sync your Plaud device to import your
-                                    recordings and start transcribing them.
+                                    同步您的 Plaud 设备以导入录音并开始转录。
                                 </p>
                                 <Button
                                     onClick={handleSync}
@@ -241,12 +251,12 @@ export function Workstation({ recordings, transcriptions }: WorkstationProps) {
                                     {isAutoSyncing ? (
                                         <>
                                             <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                                            Syncing...
+                                            同步中...
                                         </>
                                     ) : (
                                         <>
                                             <RefreshCw className="w-4 h-4 mr-2" />
-                                            Sync Device
+                                            同步设备
                                         </>
                                     )}
                                 </Button>
@@ -298,8 +308,7 @@ export function Workstation({ recordings, transcriptions }: WorkstationProps) {
                                     <Card>
                                         <CardContent className="py-16 text-center">
                                             <p className="text-muted-foreground">
-                                                Select a recording to view
-                                                details and transcription
+                                                选择一条录音查看详情和转录内容
                                             </p>
                                         </CardContent>
                                     </Card>

@@ -15,34 +15,34 @@ import { Switch } from "@/components/ui/switch";
 import { useSettings } from "@/hooks/use-settings";
 
 const languageOptions = [
-    { label: "Auto-detect", value: null },
-    { label: "English", value: "en" },
-    { label: "Spanish", value: "es" },
-    { label: "French", value: "fr" },
-    { label: "German", value: "de" },
-    { label: "Italian", value: "it" },
-    { label: "Portuguese", value: "pt" },
-    { label: "Chinese", value: "zh" },
-    { label: "Japanese", value: "ja" },
-    { label: "Korean", value: "ko" },
-    { label: "Russian", value: "ru" },
+    { label: "自动检测", value: null },
+    { label: "英语", value: "en" },
+    { label: "西班牙语", value: "es" },
+    { label: "法语", value: "fr" },
+    { label: "德语", value: "de" },
+    { label: "意大利语", value: "it" },
+    { label: "葡萄牙语", value: "pt" },
+    { label: "中文", value: "zh" },
+    { label: "日语", value: "ja" },
+    { label: "韩语", value: "ko" },
+    { label: "俄语", value: "ru" },
 ];
 
 const qualityOptions = [
     {
-        label: "Fast",
+        label: "快速",
         value: "fast",
-        description: "Faster transcription, lower accuracy",
+        description: "转录更快，准确度较低",
     },
     {
-        label: "Balanced",
+        label: "均衡",
         value: "balanced",
-        description: "Good balance of speed and accuracy",
+        description: "速度与准确度的良好平衡",
     },
     {
-        label: "Accurate",
+        label: "精确",
         value: "accurate",
-        description: "Highest accuracy, slower transcription",
+        description: "最高准确度，转录较慢",
     },
 ];
 
@@ -103,7 +103,7 @@ export function TranscriptionSection() {
         } catch {
             setAutoTranscribe(previous);
             pendingChangesRef.current.delete("autoTranscribe");
-            toast.error("Failed to save settings. Changes reverted.");
+            toast.error("保存设置失败，已恢复更改。");
         }
     };
 
@@ -204,7 +204,7 @@ export function TranscriptionSection() {
                     pendingChangesRef.current.delete("syncTitleToPlaud");
                 }
             }
-            toast.error("Failed to save settings. Changes reverted.");
+            toast.error("保存设置失败，已恢复更改。");
         }
     };
 
@@ -220,17 +220,16 @@ export function TranscriptionSection() {
         <div className="space-y-6">
             <h2 className="text-lg font-semibold flex items-center gap-2">
                 <FileText className="w-5 h-5" />
-                Transcription Settings
+                转录设置
             </h2>
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
                     <div className="space-y-0.5 flex-1">
                         <Label htmlFor="auto-transcribe" className="text-base">
-                            Auto-transcribe new recordings
+                            自动转录新录音
                         </Label>
                         <p className="text-sm text-muted-foreground">
-                            Automatically transcribe recordings when they are
-                            synced from your Plaud device
+                            从 Plaud 设备同步录音后自动转录
                         </p>
                     </div>
                     <Switch
@@ -243,7 +242,7 @@ export function TranscriptionSection() {
 
                 <div className="space-y-2">
                     <Label htmlFor="transcription-language">
-                        Default transcription language
+                        默认转录语言
                     </Label>
                     <Select
                         value={defaultTranscriptionLanguage || "auto"}
@@ -265,7 +264,7 @@ export function TranscriptionSection() {
                                     (opt) =>
                                         opt.value ===
                                         defaultTranscriptionLanguage,
-                                )?.label || "Auto-detect"}
+                                )?.label || "自动检测"}
                             </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
@@ -280,14 +279,13 @@ export function TranscriptionSection() {
                         </SelectContent>
                     </Select>
                     <p className="text-xs text-muted-foreground">
-                        Language to use for transcription. Auto-detect will
-                        identify the language automatically.
+                        用于转录的语言。自动检测将自动识别语言。
                     </p>
                 </div>
 
                 <div className="space-y-2">
                     <Label htmlFor="transcription-quality">
-                        Transcription quality
+                        转录质量
                     </Label>
                     <Select
                         value={transcriptionQuality}
@@ -306,7 +304,7 @@ export function TranscriptionSection() {
                             <SelectValue>
                                 {qualityOptions.find(
                                     (opt) => opt.value === transcriptionQuality,
-                                )?.label || "Balanced"}
+                                )?.label || "均衡"}
                             </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
@@ -326,7 +324,7 @@ export function TranscriptionSection() {
                         </SelectContent>
                     </Select>
                     <p className="text-xs text-muted-foreground">
-                        Balance between transcription speed and accuracy
+                        转录速度与准确度之间的平衡
                     </p>
                 </div>
 
@@ -336,11 +334,10 @@ export function TranscriptionSection() {
                             htmlFor="auto-generate-title"
                             className="text-base"
                         >
-                            Auto-generate titles
+                            自动生成标题
                         </Label>
                         <p className="text-sm text-muted-foreground">
-                            Automatically generate descriptive titles from
-                            transcriptions using AI
+                            使用 AI 从转录内容自动生成描述性标题
                         </p>
                     </div>
                     <Switch
@@ -363,11 +360,10 @@ export function TranscriptionSection() {
                                 htmlFor="sync-title-plaud"
                                 className="text-base"
                             >
-                                Sync titles to Plaud
+                                同步标题到 Plaud
                             </Label>
                             <p className="text-sm text-muted-foreground">
-                                Update the filename in your Plaud device when
-                                titles are generated
+                                生成标题时同步更新 Plaud 设备中的文件名
                             </p>
                         </div>
                         <Switch
@@ -388,7 +384,7 @@ export function TranscriptionSection() {
             <div className="pt-4 border-t">
                 <div className="space-y-2 text-sm">
                     <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground">Status</span>
+                        <span className="text-muted-foreground">状态</span>
                         <span
                             className={`font-medium ${
                                 autoTranscribe
@@ -396,13 +392,11 @@ export function TranscriptionSection() {
                                     : "text-muted-foreground"
                             }`}
                         >
-                            {autoTranscribe ? "Enabled" : "Disabled"}
+                            {autoTranscribe ? "已启用" : "已禁用"}
                         </span>
                     </div>
                     <p className="text-xs text-muted-foreground pt-2">
-                        When enabled, new recordings will be automatically
-                        transcribed using your default transcription provider
-                        after syncing.
+                        启用后，新录音在同步后将使用默认转录服务商自动转录。
                     </p>
                 </div>
             </div>

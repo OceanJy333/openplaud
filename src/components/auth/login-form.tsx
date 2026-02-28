@@ -29,19 +29,19 @@ export function LoginForm() {
 
             if (result.error) {
                 toast.error(
-                    result.error.message || "Invalid email or password",
+                    result.error.message || "邮箱或密码错误",
                 );
                 return;
             }
 
-            toast.success("Logged in successfully");
+            toast.success("登录成功");
             router.push("/dashboard");
             router.refresh();
         } catch (error) {
             const message =
                 error instanceof Error
                     ? error.message
-                    : "Invalid email or password";
+                    : "邮箱或密码错误";
             toast.error(message);
         } finally {
             setIsLoading(false);
@@ -57,18 +57,18 @@ export function LoginForm() {
                         OpenPlaud
                     </h1>
                     <p className="text-sm text-muted-foreground">
-                        Self-hosted AI transcription
+                        自托管 AI 语音转录
                     </p>
                 </div>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">邮箱</Label>
                     <Input
                         id="email"
                         type="email"
-                        placeholder="you@example.com"
+                        placeholder="your@email.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -77,7 +77,7 @@ export function LoginForm() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">密码</Label>
                     <Input
                         id="password"
                         type="password"
@@ -95,19 +95,19 @@ export function LoginForm() {
                     variant="cyan"
                     disabled={isLoading}
                 >
-                    {isLoading ? "Signing in..." : "Sign In"}
+                    {isLoading ? "登录中..." : "登录"}
                 </MetalButton>
             </form>
 
             <div className="text-center text-sm">
                 <span className="text-muted-foreground">
-                    Don't have an account?{" "}
+                    还没有账户？{" "}
                 </span>
                 <Link
                     href="/register"
                     className="text-accent-cyan hover:underline"
                 >
-                    Register
+                    注册
                 </Link>
             </div>
         </Panel>

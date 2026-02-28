@@ -129,9 +129,9 @@ export function ProvidersSection({
             if (!response.ok) {
                 throw new Error("Failed to save prompt settings");
             }
-            toast.success("Prompt settings saved");
+            toast.success("提示词设置已保存");
         } catch {
-            toast.error("Failed to save prompt settings");
+            toast.error("保存提示词设置失败");
         }
     };
 
@@ -165,7 +165,7 @@ export function ProvidersSection({
     };
 
     const handleDeleteCustomPrompt = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this custom prompt?")) {
+        if (!confirm("确定要删除此自定义提示词吗？")) {
             return;
         }
 
@@ -190,7 +190,7 @@ export function ProvidersSection({
             const data = await response.json();
             setProviders(data.providers);
         } catch {
-            toast.error("Failed to refresh providers");
+            toast.error("刷新服务商列表失败");
         }
     };
 
@@ -200,7 +200,7 @@ export function ProvidersSection({
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this provider?")) {
+        if (!confirm("确定要删除此服务商吗？")) {
             return;
         }
 
@@ -215,13 +215,13 @@ export function ProvidersSection({
                 throw new Error(error.error || "Failed to delete");
             }
 
-            toast.success("Provider deleted successfully");
+            toast.success("服务商已删除");
             await refreshProviders();
         } catch (error) {
             toast.error(
                 error instanceof Error
                     ? error.message
-                    : "Failed to delete provider",
+                    : "删除服务商失败",
             );
         } finally {
             setDeletingId(null);
@@ -234,7 +234,7 @@ export function ProvidersSection({
                 <div className="flex items-center justify-between">
                     <h2 className="text-lg font-semibold flex items-center gap-2">
                         <Bot className="w-5 h-5" />
-                        AI Settings
+                        AI 设置
                     </h2>
                     {aiSubSection === "providers" && (
                         <Button
@@ -242,7 +242,7 @@ export function ProvidersSection({
                             size="sm"
                         >
                             <Plus className="w-4 h-4 mr-2" />
-                            Add Provider
+                            添加服务商
                         </Button>
                     )}
                 </div>
@@ -258,7 +258,7 @@ export function ProvidersSection({
                                 : "border-transparent text-muted-foreground hover:text-foreground"
                         }`}
                     >
-                        Providers
+                        服务商
                     </button>
                     <button
                         type="button"
@@ -270,7 +270,7 @@ export function ProvidersSection({
                         }`}
                     >
                         <Sparkles className="w-4 h-4 inline mr-2" />
-                        Prompts
+                        提示词
                     </button>
                 </div>
 
@@ -281,17 +281,17 @@ export function ProvidersSection({
                             <div className="text-center py-12">
                                 <Bot className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                                 <h3 className="font-semibold mb-2">
-                                    No providers configured
+                                    尚未配置服务商
                                 </h3>
                                 <p className="text-sm text-muted-foreground mb-4">
-                                    Add an AI provider to enable transcription
+                                    添加 AI 服务商以启用转录功能
                                 </p>
                                 <Button
                                     onClick={() => setIsAddProviderOpen(true)}
                                     size="sm"
                                 >
                                     <Plus className="w-4 h-4 mr-2" />
-                                    Add Provider
+                                    添加服务商
                                 </Button>
                             </div>
                         ) : (
@@ -308,18 +308,18 @@ export function ProvidersSection({
                                                 </h3>
                                                 {provider.isDefaultTranscription && (
                                                     <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded border border-primary/20">
-                                                        Transcription
+                                                        转录
                                                     </span>
                                                 )}
                                                 {provider.isDefaultEnhancement && (
                                                     <span className="text-xs px-2 py-0.5 bg-purple-500/10 text-purple-600 rounded border border-purple-500/20">
-                                                        Enhancement
+                                                        增强
                                                     </span>
                                                 )}
                                             </div>
                                             {provider.defaultModel && (
                                                 <p className="text-sm text-muted-foreground">
-                                                    Model:{" "}
+                                                    模型：{" "}
                                                     {provider.defaultModel}
                                                 </p>
                                             )}
@@ -375,7 +375,7 @@ export function ProvidersSection({
                                 {/* Selected Prompt */}
                                 <div className="space-y-2">
                                     <Label htmlFor="selected-prompt">
-                                        Active Prompt
+                                        当前提示词
                                     </Label>
                                     <Select
                                         value={selectedPromptId}
@@ -398,7 +398,7 @@ export function ProvidersSection({
                                                         key={preset.id}
                                                         value={preset.id}
                                                     >
-                                                        {preset.name} (Preset)
+                                                        {preset.name}（预设）
                                                     </SelectItem>
                                                 ),
                                             )}
@@ -407,14 +407,13 @@ export function ProvidersSection({
                                                     key={prompt.id}
                                                     value={prompt.id}
                                                 >
-                                                    {prompt.name} (Custom)
+                                                    {prompt.name}（自定义）
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
                                     <p className="text-xs text-muted-foreground">
-                                        Select which prompt to use for title
-                                        generation
+                                        选择用于标题生成的提示词
                                     </p>
                                 </div>
 
@@ -422,7 +421,7 @@ export function ProvidersSection({
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between">
                                         <h3 className="text-sm font-semibold">
-                                            Preset Prompts
+                                            预设提示词
                                         </h3>
                                     </div>
                                     <div className="space-y-2">
@@ -443,7 +442,7 @@ export function ProvidersSection({
                                                                 {selectedPromptId ===
                                                                     preset.id && (
                                                                     <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded border border-primary/20">
-                                                                        Active
+                                                                        使用中
                                                                     </span>
                                                                 )}
                                                             </div>
@@ -462,7 +461,7 @@ export function ProvidersSection({
                                                                 )
                                                             }
                                                         >
-                                                            View Prompt
+                                                            查看提示词
                                                         </Button>
                                                     </div>
                                                 </div>
@@ -475,7 +474,7 @@ export function ProvidersSection({
                                 <div className="space-y-4 pt-4 border-t">
                                     <div className="flex items-center justify-between">
                                         <h3 className="text-sm font-semibold">
-                                            Custom Prompts
+                                            自定义提示词
                                         </h3>
                                         <Button
                                             onClick={() =>
@@ -487,13 +486,12 @@ export function ProvidersSection({
                                             size="sm"
                                         >
                                             <Plus className="w-4 h-4 mr-2" />
-                                            Add Custom Prompt
+                                            添加自定义提示词
                                         </Button>
                                     </div>
                                     {customPrompts.length === 0 ? (
                                         <p className="text-sm text-muted-foreground text-center py-4">
-                                            No custom prompts yet. Create one to
-                                            get started.
+                                            暂无自定义提示词，创建一个开始使用。
                                         </p>
                                     ) : (
                                         <div className="space-y-2">
@@ -513,7 +511,7 @@ export function ProvidersSection({
                                                                 {selectedPromptId ===
                                                                     prompt.id && (
                                                                     <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded border border-primary/20">
-                                                                        Active
+                                                                        使用中
                                                                     </span>
                                                                 )}
                                                             </div>
@@ -528,7 +526,7 @@ export function ProvidersSection({
                                                                     )
                                                                 }
                                                             >
-                                                                View
+                                                                查看
                                                             </Button>
                                                             <Button
                                                                 variant="outline"
@@ -584,12 +582,12 @@ export function ProvidersSection({
                                     customPrompts.find(
                                         (p) => p.id === viewingPromptId,
                                     )?.name ||
-                                    "Prompt"}
+                                    "提示词"}
                             </DialogTitle>
                             <DialogDescription>
                                 {PROMPT_PRESETS[
                                     viewingPromptId as keyof typeof PROMPT_PRESETS
-                                ]?.description || "Custom prompt"}
+                                ]?.description || "自定义提示词"}
                             </DialogDescription>
                             <div className="mt-4">
                                 <pre className="p-4 bg-muted rounded-md text-sm font-mono whitespace-pre-wrap overflow-x-auto">
@@ -617,20 +615,20 @@ export function ProvidersSection({
                         <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
                             <DialogTitle>
                                 {editingCustomPrompt.id
-                                    ? "Edit Custom Prompt"
-                                    : "Create Custom Prompt"}
+                                    ? "编辑自定义提示词"
+                                    : "创建自定义提示词"}
                             </DialogTitle>
                             <DialogDescription>
-                                Create a custom prompt for title generation. Use{" "}
+                                创建用于标题生成的自定义提示词。使用{" "}
                                 <code className="px-1 py-0.5 bg-muted rounded">
                                     {"{transcription}"}
                                 </code>{" "}
-                                as a placeholder for the transcription text.
+                                作为转录文本的占位符。
                             </DialogDescription>
                             <div className="space-y-4 mt-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="custom-prompt-name">
-                                        Name
+                                        名称
                                     </Label>
                                     <Input
                                         id="custom-prompt-name"
@@ -641,12 +639,12 @@ export function ProvidersSection({
                                                 name: e.target.value,
                                             })
                                         }
-                                        placeholder="My Custom Prompt"
+                                        placeholder="我的自定义提示词"
                                     />
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="custom-prompt-text">
-                                        Prompt
+                                        提示词
                                     </Label>
                                     <textarea
                                         id="custom-prompt-text"
@@ -685,7 +683,7 @@ Generate the title now:`}
                                             setEditingCustomPrompt(null)
                                         }
                                     >
-                                        Cancel
+                                        取消
                                     </Button>
                                     <Button
                                         onClick={() => {
@@ -694,7 +692,7 @@ Generate the title now:`}
                                                 !editingCustomPrompt.prompt
                                             ) {
                                                 toast.error(
-                                                    "Name and prompt are required",
+                                                    "名称和提示词为必填项",
                                                 );
                                                 return;
                                             }
@@ -708,8 +706,8 @@ Generate the title now:`}
                                         }
                                     >
                                         {editingCustomPrompt.id
-                                            ? "Save"
-                                            : "Create"}
+                                            ? "保存"
+                                            : "创建"}
                                     </Button>
                                 </div>
                             </div>

@@ -66,7 +66,7 @@ export default async function HomePage() {
                                 size="sm"
                                 className="bg-primary text-primary-foreground hover:bg-primary/90 border-primary/50 shadow-[0_0_10px_rgba(var(--primary),0.3)]"
                             >
-                                Login
+                                登录
                             </MetalButton>
                         </Link>
                     </nav>
@@ -81,21 +81,20 @@ export default async function HomePage() {
                     <div className="container mx-auto px-4 text-center relative z-10">
                         <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary mb-8 backdrop-blur-sm">
                             <span className="flex h-2 w-2 rounded-full bg-primary mr-2 animate-pulse shadow-[0_0_8px_rgba(var(--primary),0.8)]"></span>
-                            v1.0 Production Ready
+                            v1.0 正式版已发布
                         </div>
 
                         <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-foreground via-foreground/90 to-foreground/50">
-                            The Professional Interface
+                            专业级操控界面
                             <br />
                             <span className="text-foreground">
-                                for Plaud Note
+                                为 Plaud Note 而生
                             </span>
                         </h1>
 
                         <p className="max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed">
-                            Stop paying monthly subscriptions. Use your own API
-                            keys, store your data locally, and get professional
-                            transcriptions with complete privacy.
+                            告别月费订阅。使用自己的 API
+                            密钥，数据本地存储，在完全隐私的环境下获得专业级转录。
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
@@ -104,7 +103,7 @@ export default async function HomePage() {
                                     size="lg"
                                     className="w-full sm:w-auto gap-2 bg-primary text-primary-foreground hover:bg-primary/90 border-primary/50 h-14 px-8 text-lg shadow-[0_0_20px_rgba(var(--primary),0.3)]"
                                 >
-                                    Get Started{" "}
+                                    立即开始{" "}
                                     <ArrowRight className="size-5" />
                                 </MetalButton>
                             </Link>
@@ -118,7 +117,7 @@ export default async function HomePage() {
                                     variant="default"
                                     className="w-full sm:w-auto gap-2 bg-background/50 backdrop-blur hover:bg-background/80 h-14 px-8 text-lg"
                                 >
-                                    <Github className="size-5" /> View Source
+                                    <Github className="size-5" /> 查看源码
                                 </MetalButton>
                             </Link>
                         </div>
@@ -135,7 +134,7 @@ export default async function HomePage() {
                                         <div className="size-3 rounded-full bg-green-500/20 border border-green-500/50" />
                                     </div>
                                     <div className="flex-1 text-center text-xs font-mono text-muted-foreground opacity-50">
-                                        OpenPlaud - Dashboard
+                                        OpenPlaud - 工作台
                                     </div>
                                 </div>
 
@@ -144,10 +143,10 @@ export default async function HomePage() {
                                     <div className="flex items-center justify-between mb-6">
                                         <div>
                                             <h1 className="text-2xl font-bold">
-                                                Recordings
+                                                录音列表
                                             </h1>
                                             <p className="text-muted-foreground text-sm mt-1">
-                                                3 recordings
+                                                3 条录音
                                             </p>
                                         </div>
                                         <div className="flex items-center gap-3">
@@ -156,7 +155,7 @@ export default async function HomePage() {
                                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                                                 </span>
-                                                Synced just now
+                                                刚刚已同步
                                             </div>
                                             <Button
                                                 variant="outline"
@@ -164,7 +163,7 @@ export default async function HomePage() {
                                                 className="h-9"
                                             >
                                                 <RefreshCw className="w-4 h-4 mr-2" />
-                                                Sync Device
+                                                同步设备
                                             </Button>
                                             <Button
                                                 variant="outline"
@@ -185,7 +184,7 @@ export default async function HomePage() {
                                                             {
                                                                 id: 1,
                                                                 filename:
-                                                                    "Weekly Team Sync.mp3",
+                                                                    "每周团队同步.mp3",
                                                                 time: "10:00 AM",
                                                                 duration:
                                                                     "45:20",
@@ -195,8 +194,8 @@ export default async function HomePage() {
                                                             {
                                                                 id: 2,
                                                                 filename:
-                                                                    "Product Roadmap.mp3",
-                                                                time: "Yesterday",
+                                                                    "产品路线图.mp3",
+                                                                time: "昨天",
                                                                 duration:
                                                                     "1:15:00",
                                                                 size: "42.1 MB",
@@ -205,8 +204,8 @@ export default async function HomePage() {
                                                             {
                                                                 id: 3,
                                                                 filename:
-                                                                    "Client Interview.mp3",
-                                                                time: "2 days ago",
+                                                                    "客户访谈.mp3",
+                                                                time: "2 天前",
                                                                 duration:
                                                                     "22:15",
                                                                 size: "12.8 MB",
@@ -263,10 +262,10 @@ export default async function HomePage() {
                                             <Card>
                                                 <CardHeader className="pb-4">
                                                     <CardTitle className="text-lg">
-                                                        Weekly Team Sync.mp3
+                                                        每周团队同步.mp3
                                                     </CardTitle>
                                                     <p className="text-xs text-muted-foreground">
-                                                        Today at 10:00 AM
+                                                        今天 10:00 AM
                                                     </p>
                                                 </CardHeader>
                                                 <CardContent className="space-y-4">
@@ -322,7 +321,7 @@ export default async function HomePage() {
                                                     <div className="flex items-center justify-between">
                                                         <CardTitle className="flex items-center gap-2 text-base">
                                                             <FileText className="w-4 h-4" />
-                                                            Transcription
+                                                            转录文本
                                                         </CardTitle>
                                                         <div className="flex items-center gap-2">
                                                             <Button
@@ -331,7 +330,7 @@ export default async function HomePage() {
                                                                 className="h-8 text-xs"
                                                             >
                                                                 <Download className="w-3 h-3 mr-1" />
-                                                                Export
+                                                                导出
                                                             </Button>
                                                         </div>
                                                     </div>
@@ -340,48 +339,38 @@ export default async function HomePage() {
                                                     <div className="bg-muted/50 rounded-lg p-4">
                                                         <p className="text-sm leading-relaxed text-muted-foreground">
                                                             <span className="text-foreground font-medium">
-                                                                Speaker A:
+                                                                说话人 A：
                                                             </span>{" "}
-                                                            Alright, let's get
-                                                            started. The main
-                                                            goal for this week
-                                                            is to finalize the
-                                                            Q3 roadmap.
+                                                            好的，我们开始吧。这周的主要目标是敲定
+                                                            Q3 路线图。
                                                             <br />
                                                             <br />
                                                             <span className="text-foreground font-medium">
-                                                                Speaker B:
+                                                                说话人 B：
                                                             </span>{" "}
-                                                            I've updated the
-                                                            Jira board with the
-                                                            new feature requests
-                                                            from the customer
-                                                            calls.
+                                                            我已经把客户电话中收集到的新功能需求更新到了
+                                                            Jira 看板上。
                                                             <br />
                                                             <br />
                                                             <span className="text-foreground font-medium">
-                                                                Speaker A:
+                                                                说话人 A：
                                                             </span>{" "}
-                                                            Great. Specifically,
-                                                            we need to focus on
-                                                            the API integration
-                                                            stability. It's been
-                                                            a recurring issue...
+                                                            很好。具体来说，我们需要重点关注
+                                                            API 集成的稳定性，这一直是个反复出现的问题……
                                                         </p>
                                                     </div>
                                                     <div className="flex items-center gap-4 text-xs text-muted-foreground pt-3 border-t mt-3">
                                                         <div className="flex items-center gap-1">
                                                             <Languages className="w-3 h-3" />
                                                             <span>
-                                                                Language:
-                                                                English
+                                                                语言：中文
                                                             </span>
                                                         </div>
-                                                        <div>4,281 words</div>
+                                                        <div>4,281 字</div>
                                                         <div className="flex items-center gap-1 ml-auto text-primary">
                                                             <Sparkles className="w-3 h-3" />
                                                             <span>
-                                                                AI Summary Ready
+                                                                AI 摘要已就绪
                                                             </span>
                                                         </div>
                                                     </div>
@@ -400,44 +389,43 @@ export default async function HomePage() {
                     <div className="container mx-auto px-4">
                         <div className="text-center mb-16 max-w-3xl mx-auto">
                             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-                                Why OpenPlaud?
+                                为什么选择 OpenPlaud？
                             </h2>
                             <p className="text-muted-foreground text-lg">
-                                We built this because we wanted control over our
-                                own data. Here is why you should switch.
+                                我们构建它是因为我们想要掌控自己的数据。以下是你应该切换的理由。
                             </p>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <FeatureCard
                                 icon={<Database className="size-6" />}
-                                title="Your Data, Your Disk"
-                                description="Recordings are stored on your local filesystem or your own S3 bucket. No vendor lock-in, no mysterious cloud storage."
+                                title="你的数据，你的磁盘"
+                                description="录音存储在本地文件系统或你自己的 S3 存储桶中。没有供应商锁定，没有不透明的云存储。"
                             />
                             <FeatureCard
                                 icon={<Cpu className="size-6" />}
-                                title="Bring Your Own AI"
-                                description="Connect to OpenAI, Anthropic, Groq, or run local LLMs. Choose the model that fits your budget and privacy needs."
+                                title="自带 AI 模型"
+                                description="连接 OpenAI、Anthropic、Groq，或运行本地 LLM。选择最符合你预算和隐私需求的模型。"
                             />
                             <FeatureCard
                                 icon={<Search className="size-6" />}
-                                title="Privacy First"
-                                description="No telemetry, no tracking. Use browser-based transcription to keep your audio strictly on your device."
+                                title="隐私优先"
+                                description="无遥测、无追踪。使用浏览器端转录，让你的音频始终留在设备上。"
                             />
                             <FeatureCard
                                 icon={<Zap className="size-6" />}
-                                title="Lightning Fast Sync"
-                                description="Background synchronization keeps your library up to date without you lifting a finger."
+                                title="闪电般快速同步"
+                                description="后台自动同步，无需任何操作即可保持录音库最新。"
                             />
                             <FeatureCard
                                 icon={<Download className="size-6" />}
-                                title="Export Anywhere"
-                                description="One-click export to Markdown, JSON, SRT, or VTT. Perfect for Notion, Obsidian, or video editors."
+                                title="导出到任何地方"
+                                description="一键导出为 Markdown、JSON、SRT 或 VTT 格式。完美兼容 Notion、Obsidian 或视频编辑器。"
                             />
                             <FeatureCard
                                 icon={<Shield className="size-6" />}
-                                title="Open Source (AGPL-3.0)"
-                                description="Audit the code yourself. Contribute features. The community drives the roadmap, not shareholders. Licensed under AGPL-3.0 for maximum freedom and transparency."
+                                title="开源 (AGPL-3.0)"
+                                description="亲自审查代码，贡献功能。社区驱动路线图，而非股东。基于 AGPL-3.0 协议，最大程度保障自由与透明。"
                             />
                         </div>
                     </div>
@@ -447,37 +435,37 @@ export default async function HomePage() {
                 <section className="py-24 container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
                         <h2 className="text-3xl font-bold text-center mb-12">
-                            The Smart Alternative
+                            更明智的选择
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="p-8 rounded-2xl border border-border bg-card">
                                 <h3 className="text-xl font-bold mb-6 text-muted-foreground">
-                                    Official Cloud
+                                    官方云服务
                                 </h3>
                                 <ul className="space-y-4">
                                     <li className="flex items-center gap-3 text-muted-foreground">
                                         <div className="size-5 rounded-full border border-border flex items-center justify-center shrink-0">
                                             ×
                                         </div>
-                                        Monthly subscription fees
+                                        按月订阅收费
                                     </li>
                                     <li className="flex items-center gap-3 text-muted-foreground">
                                         <div className="size-5 rounded-full border border-border flex items-center justify-center shrink-0">
                                             ×
                                         </div>
-                                        Limited recording minutes
+                                        录音时长有限制
                                     </li>
                                     <li className="flex items-center gap-3 text-muted-foreground">
                                         <div className="size-5 rounded-full border border-border flex items-center justify-center shrink-0">
                                             ×
                                         </div>
-                                        Data stored on their servers
+                                        数据存储在他们的服务器上
                                     </li>
                                     <li className="flex items-center gap-3 text-muted-foreground">
                                         <div className="size-5 rounded-full border border-border flex items-center justify-center shrink-0">
                                             ×
                                         </div>
-                                        Fixed AI model choices
+                                        AI 模型选择固定
                                     </li>
                                 </ul>
                             </div>
@@ -487,7 +475,7 @@ export default async function HomePage() {
                                     OpenPlaud
                                 </div>
                                 <h3 className="text-xl font-bold mb-6 text-primary">
-                                    Self-Hosted
+                                    自托管
                                 </h3>
                                 <ul className="space-y-4">
                                     <li className="flex items-center gap-3">
@@ -495,7 +483,7 @@ export default async function HomePage() {
                                             <Check className="size-3" />
                                         </div>
                                         <span className="font-medium">
-                                            Free forever (Self-hosted)
+                                            永久免费（自托管）
                                         </span>
                                     </li>
                                     <li className="flex items-center gap-3">
@@ -503,7 +491,7 @@ export default async function HomePage() {
                                             <Check className="size-3" />
                                         </div>
                                         <span className="font-medium">
-                                            Unlimited recordings
+                                            无限录音
                                         </span>
                                     </li>
                                     <li className="flex items-center gap-3">
@@ -511,7 +499,7 @@ export default async function HomePage() {
                                             <Check className="size-3" />
                                         </div>
                                         <span className="font-medium">
-                                            Data stays on your machine
+                                            数据留在你自己的机器上
                                         </span>
                                     </li>
                                     <li className="flex items-center gap-3">
@@ -519,7 +507,7 @@ export default async function HomePage() {
                                             <Check className="size-3" />
                                         </div>
                                         <span className="font-medium">
-                                            Any AI Model (GPT-4, Claude, Llama)
+                                            任意 AI 模型（GPT-4、Claude、Llama）
                                         </span>
                                     </li>
                                 </ul>
@@ -536,15 +524,14 @@ export default async function HomePage() {
                             <div className="lg:w-1/2 space-y-6">
                                 <div className="inline-flex items-center rounded-full border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs font-medium text-zinc-400">
                                     <Terminal className="mr-2 size-3" />
-                                    Zero Config Deployment
+                                    零配置部署
                                 </div>
                                 <h2 className="text-3xl font-bold tracking-tight">
-                                    Deploy in Seconds
+                                    秒级部署
                                 </h2>
                                 <p className="text-zinc-400 text-lg">
-                                    Get up and running instantly with Docker
-                                    Compose. Includes PostgreSQL database and
-                                    automatic migrations.
+                                    使用 Docker Compose 即刻启动运行。内置
+                                    PostgreSQL 数据库和自动迁移。
                                 </p>
                                 <div className="flex flex-wrap gap-4">
                                     <div className="flex items-center gap-2 text-sm text-zinc-500">
@@ -618,12 +605,10 @@ export default async function HomePage() {
                     <div className="bg-primary/5 rounded-3xl p-8 md:p-16 text-center relative overflow-hidden border border-primary/10">
                         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(var(--primary),0.1),transparent_70%)]" />
                         <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 relative z-10">
-                            Ready to take ownership?
+                            准备好掌控你的数据了吗？
                         </h2>
                         <p className="text-muted-foreground max-w-xl mx-auto mb-8 relative z-10">
-                            Join the community of audio professionals and
-                            developers who prefer open, transparent, and private
-                            tools.
+                            加入音频专业人士和开发者社区，他们选择开放、透明、保护隐私的工具。
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
                             <Link href="/register">
@@ -631,7 +616,7 @@ export default async function HomePage() {
                                     size="lg"
                                     className="bg-primary text-primary-foreground hover:bg-primary/90 border-primary/50 w-full sm:w-auto"
                                 >
-                                    Create Account
+                                    创建账户
                                 </MetalButton>
                             </Link>
                             <Link
@@ -643,7 +628,7 @@ export default async function HomePage() {
                                     variant="default"
                                     className="bg-background/50 w-full sm:w-auto"
                                 >
-                                    Star on GitHub
+                                    在 GitHub 上 Star
                                 </MetalButton>
                             </Link>
                         </div>

@@ -78,7 +78,7 @@ export function RecordingList({
     return (
         <Card hasNoPadding>
             <CardContent className="p-0">
-                <div className="divide-y">
+                <div className="divide-y max-h-[calc(100vh-200px)] overflow-y-auto">
                     {sortedAndPaginatedRecordings.map((recording) => {
                         const isSelected =
                             currentRecording?.id === recording.id;
@@ -142,10 +142,10 @@ export function RecordingList({
                             disabled={currentPage === 1}
                             className="text-sm text-muted-foreground hover:text-foreground disabled:opacity-50"
                         >
-                            Previous
+                            上一页
                         </button>
                         <span className="text-sm text-muted-foreground">
-                            Page {currentPage} of {totalPages}
+                            第 {currentPage} / {totalPages} 页
                         </span>
                         <button
                             type="button"
@@ -157,7 +157,7 @@ export function RecordingList({
                             disabled={currentPage === totalPages}
                             className="text-sm text-muted-foreground hover:text-foreground disabled:opacity-50"
                         >
-                            Next
+                            下一页
                         </button>
                     </div>
                 )}

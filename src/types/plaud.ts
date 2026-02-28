@@ -54,6 +54,48 @@ export interface PlaudTempUrlResponse {
     temp_url_opus?: string;
 }
 
+export interface PlaudTransSegment {
+    content: string;
+    start_time: number;
+    end_time: number;
+    speaker: string;
+    original_speaker?: string;
+    embeddingKey?: string | null;
+}
+
+export interface PlaudContentItem {
+    data_id: string;
+    data_type: string; // "transaction" | "outline" | "auto_sum_note"
+    task_status: number;
+    data_title: string;
+    data_tab_name: string;
+    data_link: string;
+    extra?: Record<string, unknown>;
+}
+
+export interface PlaudPreDownloadContent {
+    data_id: string;
+    data_content: string;
+}
+
+export interface PlaudFileDetailResponse {
+    status: number;
+    data: {
+        file_id: string;
+        file_name: string;
+        file_version: number;
+        duration: number;
+        is_trash: boolean;
+        start_time: number;
+        scene: number;
+        serial_number: string;
+        content_list: PlaudContentItem[];
+        pre_download_content_list: PlaudPreDownloadContent[];
+        extra_data?: Record<string, unknown>;
+        [key: string]: unknown;
+    };
+}
+
 export interface PlaudApiError {
     status: number;
     msg: string;

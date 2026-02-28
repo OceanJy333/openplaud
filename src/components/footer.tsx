@@ -14,9 +14,9 @@ export function Footer() {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div className="flex flex-col items-center md:items-start gap-2">
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <span className="font-mono">Made with</span>
+                            <span className="font-mono">用</span>
                             <Heart className="w-4 h-4 text-destructive fill-destructive animate-pulse" />
-                            <span className="font-mono">for meetings</span>
+                            <span className="font-mono">为会议而生</span>
                         </div>
                         <div className="flex flex-col items-center md:items-start gap-1">
                             <div className="flex items-center gap-2 text-xs text-muted-foreground/80 font-mono">
@@ -29,7 +29,7 @@ export function Footer() {
                                     >
                                         OpenPlaud
                                     </Link>
-                                    . Licensed under{" "}
+                                    。基于{" "}
                                     <Link
                                         href="https://www.gnu.org/licenses/agpl-3.0.html"
                                         target="_blank"
@@ -38,7 +38,7 @@ export function Footer() {
                                     >
                                         AGPL-3.0
                                     </Link>
-                                    .
+                                    {" "}协议开源。
                                 </span>
                             </div>
                             <Link
@@ -63,14 +63,14 @@ export function Footer() {
                             ))}
                         </div>
                         <div className="text-[10px] text-muted-foreground/50 font-mono uppercase tracking-wider">
-                            Open Source • Built for the Community
+                            开源项目 • 为社区而建
                         </div>
                         <Link
                             href="https://github.com/openplaud/openplaud"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-muted-foreground/50 hover:text-muted-foreground transition-colors"
-                            aria-label="View source code on GitHub"
+                            aria-label="在 GitHub 上查看源码"
                         >
                             <Github className="size-4 text-muted-foreground/50 hover:text-muted-foreground transition-colors" />
                         </Link>

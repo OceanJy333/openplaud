@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "OpenPlaud - Professional Audio Workstation",
+    title: "OpenPlaud - 专业音频工作站",
     description:
-        "Professional audio workstation for Plaud devices with AI-powered transcription",
+        "面向 Plaud 设备的专业音频工作站，支持 AI 驱动的语音转录",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="zh-CN" suppressHydrationWarning>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >

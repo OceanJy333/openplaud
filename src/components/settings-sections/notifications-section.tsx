@@ -110,7 +110,7 @@ export function NotificationsSection() {
         if (!emailToTest) {
             setTestEmailStatus({
                 type: "error",
-                message: "Please enter an email address first",
+                message: "请先输入邮箱地址",
             });
             return;
         }
@@ -132,19 +132,19 @@ export function NotificationsSection() {
             if (response.ok) {
                 setTestEmailStatus({
                     type: "success",
-                    message: `Test email sent successfully to ${emailToTest}`,
+                    message: `测试邮件已成功发送至 ${emailToTest}`,
                 });
             } else {
                 setTestEmailStatus({
                     type: "error",
-                    message: data.error || "Failed to send test email",
+                    message: data.error || "发送测试邮件失败",
                 });
             }
         } catch (err) {
             console.error("Error sending test email:", err);
             setTestEmailStatus({
                 type: "error",
-                message: "Failed to send test email. Please try again.",
+                message: "发送测试邮件失败，请重试。",
             });
         } finally {
             setIsSendingTestEmail(false);
@@ -163,7 +163,7 @@ export function NotificationsSection() {
         <div className="space-y-6">
             <h2 className="text-lg font-semibold flex items-center gap-2">
                 <Bell className="w-5 h-5" />
-                Notification Settings
+                通知设置
             </h2>
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -172,11 +172,10 @@ export function NotificationsSection() {
                             htmlFor="browser-notifications"
                             className="text-base"
                         >
-                            Browser notifications
+                            浏览器通知
                         </Label>
                         <p className="text-sm text-muted-foreground">
-                            Show browser notifications for new recordings and
-                            sync events
+                            新录音和同步事件时显示浏览器通知
                         </p>
                     </div>
                     <Switch
@@ -193,10 +192,10 @@ export function NotificationsSection() {
                             htmlFor="email-notifications"
                             className="text-base"
                         >
-                            Email notifications
+                            邮件通知
                         </Label>
                         <p className="text-sm text-muted-foreground">
-                            Send email notifications for new recordings
+                            新录音时发送邮件通知
                         </p>
                     </div>
                     <Switch
@@ -210,7 +209,7 @@ export function NotificationsSection() {
                 {emailNotifications && (
                     <div className="space-y-2">
                         <Label htmlFor="notification-email">
-                            Email address
+                            邮箱地址
                         </Label>
                         <Input
                             id="notification-email"
@@ -219,12 +218,12 @@ export function NotificationsSection() {
                             onChange={(e) =>
                                 handleNotificationEmailChange(e.target.value)
                             }
-                            placeholder={userEmail || "your@email.com"}
+                            placeholder={userEmail || "你的邮箱@example.com"}
                         />
                         <p className="text-xs text-muted-foreground">
                             {userEmail && notificationEmail === userEmail
-                                ? "Using your account email. You can change this to a different address if needed."
-                                : "Email address to receive notifications"}
+                                ? "使用账户邮箱，如需更改可输入其他地址。"
+                                : "接收通知的邮箱地址"}
                         </p>
                         <div className="flex items-center gap-2">
                             <Button
@@ -239,8 +238,8 @@ export function NotificationsSection() {
                             >
                                 <Mail className="w-4 h-4" />
                                 {isSendingTestEmail
-                                    ? "Sending..."
-                                    : "Send test email"}
+                                    ? "发送中..."
+                                    : "发送测试邮件"}
                             </Button>
                             {testEmailStatus.type && (
                                 <p
@@ -263,10 +262,10 @@ export function NotificationsSection() {
                             htmlFor="bark-notifications"
                             className="text-base"
                         >
-                            Bark push notifications
+                            Bark 推送通知
                         </Label>
                         <p className="text-sm text-muted-foreground">
-                            Send push notifications via Bark for new recordings
+                            新录音时通过 Bark 发送推送通知
                         </p>
                     </div>
                     <Switch
@@ -279,7 +278,7 @@ export function NotificationsSection() {
 
                 {barkNotifications && (
                     <div className="space-y-2">
-                        <Label htmlFor="bark-push-url">Bark push URL</Label>
+                        <Label htmlFor="bark-push-url">Bark 推送 URL</Label>
                         <Input
                             id="bark-push-url"
                             type="url"
@@ -290,8 +289,7 @@ export function NotificationsSection() {
                             placeholder="https://api.day.app/your_key"
                         />
                         <p className="text-xs text-muted-foreground">
-                            Copy the full push URL from the Bark app (e.g.,
-                            https://api.day.app/your_key)
+                            从 Bark 应用中复制完整的推送 URL（如：https://api.day.app/your_key）
                         </p>
                     </div>
                 )}
@@ -302,10 +300,10 @@ export function NotificationsSection() {
                             htmlFor="notification-sound"
                             className="text-base"
                         >
-                            Notification sound
+                            通知提示音
                         </Label>
                         <p className="text-sm text-muted-foreground">
-                            Play a sound when notifications are received
+                            收到通知时播放提示音
                         </p>
                     </div>
                     <Switch

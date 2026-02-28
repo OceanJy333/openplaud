@@ -23,12 +23,12 @@ export function RegisterForm() {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            toast.error("Passwords do not match");
+            toast.error("两次输入的密码不一致");
             return;
         }
 
         if (password.length < 8) {
-            toast.error("Password must be at least 8 characters");
+            toast.error("密码长度至少为 8 个字符");
             return;
         }
 
@@ -42,18 +42,18 @@ export function RegisterForm() {
             });
 
             if (result.error) {
-                toast.error(result.error.message || "Failed to create account");
+                toast.error(result.error.message || "创建账户失败");
                 return;
             }
 
-            toast.success("Account created successfully");
+            toast.success("账户创建成功");
             router.push("/onboarding");
             router.refresh();
         } catch (error) {
             const message =
                 error instanceof Error
                     ? error.message
-                    : "Failed to create account";
+                    : "创建账户失败";
             toast.error(message);
         } finally {
             setIsLoading(false);
@@ -66,21 +66,21 @@ export function RegisterForm() {
                 <Logo className="size-10 shrink-0" />
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight">
-                        Create Account
+                        创建账户
                     </h1>
                     <p className="text-sm text-muted-foreground">
-                        Get started with OpenPlaud
+                        开始使用 OpenPlaud
                     </p>
                 </div>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                    <Label htmlFor="name">Name</Label>
+                    <Label htmlFor="name">姓名</Label>
                     <Input
                         id="name"
                         type="text"
-                        placeholder="John Doe"
+                        placeholder="请输入姓名"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
@@ -89,11 +89,11 @@ export function RegisterForm() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">邮箱</Label>
                     <Input
                         id="email"
                         type="email"
-                        placeholder="you@example.com"
+                        placeholder="your@email.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -102,7 +102,7 @@ export function RegisterForm() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">密码</Label>
                     <Input
                         id="password"
                         type="password"
@@ -116,7 +116,7 @@ export function RegisterForm() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="confirmPassword">Confirm Password</Label>
+                    <Label htmlFor="confirmPassword">确认密码</Label>
                     <Input
                         id="confirmPassword"
                         type="password"
@@ -134,19 +134,19 @@ export function RegisterForm() {
                     variant="cyan"
                     disabled={isLoading}
                 >
-                    {isLoading ? "Creating account..." : "Create Account"}
+                    {isLoading ? "创建中..." : "创建账户"}
                 </MetalButton>
             </form>
 
             <div className="text-center text-sm">
                 <span className="text-muted-foreground">
-                    Already have an account?{" "}
+                    已有账户？{" "}
                 </span>
                 <Link
                     href="/login"
                     className="text-accent-cyan hover:underline"
                 >
-                    Sign in
+                    登录
                 </Link>
             </div>
         </Panel>

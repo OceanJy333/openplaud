@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { AppError, createErrorResponse, ErrorCode } from "@/lib/errors";
-import { syncRecordingsForUser } from "@/lib/sync/sync-recordings";
+import { backfillPlaudTranscriptions } from "@/lib/sync/sync-recordings";
 
 export async function POST(request: Request) {
     try {
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
         if (!userId) {
             const error = new AppError(
                 ErrorCode.UNAUTHORIZED,
-                "You must be logged in to sync recordings",
+                "You must be logged in",
                 401,
             );
             const response = createErrorResponse(error);
@@ -46,16 +46,15 @@ export async function POST(request: Request) {
             });
         }
 
-        const result = await syncRecordingsForUser(userId);
+        const result = await backfillPlaudTranscriptions(userId);
 
         return NextResponse.json({
             success: true,
-            newRecordings: result.newRecordings,
-            updatedRecordings: result.updatedRecordings,
+            filled: result.filled,
             errors: result.errors,
         });
     } catch (error) {
-        console.error("Error syncing recordings:", error);
+        console.error("Error backfilling transcriptions:", error);
         const response = createErrorResponse(error, ErrorCode.PLAUD_API_ERROR);
         return NextResponse.json(response.body, { status: response.status });
     }

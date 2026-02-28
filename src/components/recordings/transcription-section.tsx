@@ -41,10 +41,10 @@ export function TranscriptionSection({
                     errorData.error?.includes("No transcription API")
                 ) {
                     toast.error(
-                        "Please configure an AI provider in Settings first",
+                        "请先在设置中配置 AI 服务商",
                     );
                 } else {
-                    toast.error(errorData.error || "Transcription failed");
+                    toast.error(errorData.error || "转录失败");
                 }
                 return;
             }
@@ -53,9 +53,9 @@ export function TranscriptionSection({
             setTranscription(data.transcription);
             setDetectedLanguage(data.detectedLanguage);
             setTranscriptionType("server");
-            toast.success("Transcription complete");
+            toast.success("转录完成");
         } catch {
-            toast.error("Transcription failed. Please try again.");
+            toast.error("转录失败，请重试。");
         } finally {
             setIsProcessing(false);
         }
@@ -66,7 +66,7 @@ export function TranscriptionSection({
             <div className="space-y-4">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="flex flex-wrap items-center gap-3">
-                        <h2 className="text-xl font-bold">Transcription</h2>
+                        <h2 className="text-xl font-bold">转录内容</h2>
                         {detectedLanguage && (
                             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-panel-inset">
                                 <LEDIndicator
@@ -75,7 +75,7 @@ export function TranscriptionSection({
                                     size="sm"
                                 />
                                 <span className="text-label text-xs">
-                                    Lang:{" "}
+                                    语言:{" "}
                                     <span className="font-mono uppercase text-accent-cyan">
                                         {detectedLanguage}
                                     </span>
@@ -95,10 +95,10 @@ export function TranscriptionSection({
                         className="w-full md:w-auto"
                     >
                         {isProcessing
-                            ? "Processing..."
+                            ? "处理中..."
                             : transcription
-                              ? "Re-transcribe"
-                              : "Transcribe"}
+                              ? "重新转录"
+                              : "转录"}
                     </MetalButton>
                 </div>
 
@@ -117,10 +117,10 @@ export function TranscriptionSection({
                             className="mx-auto mb-4"
                         />
                         <p className="text-muted-foreground mb-2">
-                            No transcription yet
+                            暂无转录内容
                         </p>
                         <p className="text-sm text-text-muted">
-                            Click "Transcribe" to generate a transcription
+                            点击"转录"生成转录内容
                         </p>
                     </Panel>
                 )}

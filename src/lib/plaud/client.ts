@@ -1,8 +1,10 @@
 import type {
     PlaudApiError,
     PlaudDeviceListResponse,
+    PlaudFileDetailResponse,
     PlaudRecordingsResponse,
     PlaudTempUrlResponse,
+    PlaudTransSegment,
 } from "@/types/plaud";
 import { DEFAULT_SERVER_KEY, PLAUD_SERVERS } from "./servers";
 
@@ -198,6 +200,92 @@ export class PlaudClient {
             return true;
         } catch {
             return false;
+        }
+    }
+
+    /**
+     * Get file detail including content links for transcription and AI summary
+     * @param fileId - The recording file ID
+     */
+    async getFileDetail(fileId: string): Promise<PlaudFileDetailResponse> {
+        return this.request<PlaudFileDetailResponse>(`/file/detail/${fileId}`);
+    }
+
+    /**
+     * Get transcription text for a recording from Plaud's S3 storage.
+     * Downloads and decompresses the gzipped transcription JSON.
+     * @param fileId - The recording file ID
+     * @returns Transcription text with speaker labels, or null if not available
+     */
+    async getTranscriptionText(fileId: string): Promise<string | null> {
+        try {
+            const detail = await this.getFileDetail(fileId);
+            const contentList = detail.data?.content_list ?? [];
+            const transItem = contentList.find(
+                (c) => c.data_type === "transaction",
+            );
+            if (!transItem?.data_link) {
+                console.log(`[plaud] ${fileId}: no transaction data_link`);
+                return null;
+            }
+
+            console.log(`[plaud] ${fileId}: downloading trans from S3...`);
+            const response = await fetch(transItem.data_link);
+            if (!response.ok) {
+                console.log(`[plaud] ${fileId}: S3 download failed: ${response.status}`);
+                return null;
+            }
+
+            const arrayBuffer = await response.arrayBuffer();
+            const buf = Buffer.from(arrayBuffer);
+
+            // Try parsing directly first (fetch may auto-decompress gzip)
+            // Fall back to manual gunzip if direct parse fails
+            let jsonStr: string;
+            try {
+                jsonStr = buf.toString("utf-8");
+                JSON.parse(jsonStr); // validate
+            } catch {
+                const { gunzipSync } = await import("node:zlib");
+                jsonStr = gunzipSync(buf).toString("utf-8");
+            }
+
+            const segments: PlaudTransSegment[] = JSON.parse(jsonStr);
+
+            if (!Array.isArray(segments) || segments.length === 0) {
+                console.log(`[plaud] ${fileId}: no segments in transcription`);
+                return null;
+            }
+
+            console.log(`[plaud] ${fileId}: got ${segments.length} segments`);
+            return segments
+                .map((s) =>
+                    s.speaker
+                        ? `${s.speaker}: ${s.content}`
+                        : s.content,
+                )
+                .join("\n");
+        } catch (error) {
+            console.error(`[plaud] ${fileId}: getTranscriptionText error:`, error);
+            return null;
+        }
+    }
+
+    /**
+     * Get AI summary for a recording (pre-downloaded content from Plaud)
+     * @param fileId - The recording file ID
+     * @returns Summary markdown text or null
+     */
+    async getAiSummary(fileId: string): Promise<string | null> {
+        try {
+            const detail = await this.getFileDetail(fileId);
+            const preDownload = detail.data?.pre_download_content_list ?? [];
+            if (preDownload.length > 0 && preDownload[0].data_content) {
+                return preDownload[0].data_content;
+            }
+            return null;
+        } catch {
+            return null;
         }
     }
 

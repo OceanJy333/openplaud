@@ -109,7 +109,7 @@ export function PlaybackSection() {
                     const prev = previousValues.autoPlayNext;
                     if (typeof prev === "boolean") setAutoPlayNext(prev);
                 }
-                toast.error("Failed to save settings. Changes reverted.");
+                toast.error("保存设置失败，已恢复更改。");
             }
         };
 
@@ -132,12 +132,12 @@ export function PlaybackSection() {
         <div className="space-y-6">
             <h2 className="text-lg font-semibold flex items-center gap-2">
                 <Play className="w-5 h-5" />
-                Playback Settings
+                播放设置
             </h2>
             <div className="space-y-4">
                 <div className="space-y-2">
                     <Label htmlFor="playback-speed">
-                        Default playback speed
+                        默认播放速度
                     </Label>
                     <Select
                         value={defaultPlaybackSpeed.toString()}
@@ -169,13 +169,13 @@ export function PlaybackSection() {
                         </SelectContent>
                     </Select>
                     <p className="text-xs text-muted-foreground">
-                        Default playback speed for new recordings
+                        新录音的默认播放速度
                     </p>
                 </div>
 
                 <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                        <Label htmlFor="default-volume">Default volume</Label>
+                        <Label htmlFor="default-volume">默认音量</Label>
                         <span className="text-sm text-muted-foreground">
                             {defaultVolume}%
                         </span>
@@ -196,18 +196,17 @@ export function PlaybackSection() {
                         step={1}
                     />
                     <p className="text-xs text-muted-foreground">
-                        Default volume level for audio playback
+                        音频播放的默认音量
                     </p>
                 </div>
 
                 <div className="flex items-center justify-between">
                     <div className="space-y-0.5 flex-1">
                         <Label htmlFor="auto-play-next" className="text-base">
-                            Auto-play next recording
+                            自动播放下一条录音
                         </Label>
                         <p className="text-sm text-muted-foreground">
-                            Automatically play the next recording when the
-                            current one ends
+                            当前录音播放结束后自动播放下一条
                         </p>
                     </div>
                     <Switch
@@ -226,35 +225,35 @@ export function PlaybackSection() {
 
             <div className="pt-4 border-t">
                 <div className="space-y-2">
-                    <Label className="text-base">Keyboard Shortcuts</Label>
+                    <Label className="text-base">键盘快捷键</Label>
                     <div className="space-y-1.5 text-sm">
                         <div className="flex justify-between">
-                            <span className="text-muted-foreground">Space</span>
-                            <span>Play/Pause</span>
+                            <span className="text-muted-foreground">空格</span>
+                            <span>播放/暂停</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">
-                                Arrow Left
+                                左方向键
                             </span>
-                            <span>Seek backward 5s</span>
+                            <span>后退 5 秒</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">
-                                Arrow Right
+                                右方向键
                             </span>
-                            <span>Seek forward 5s</span>
+                            <span>前进 5 秒</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">
-                                Arrow Up
+                                上方向键
                             </span>
-                            <span>Increase volume</span>
+                            <span>增大音量</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">
-                                Arrow Down
+                                下方向键
                             </span>
-                            <span>Decrease volume</span>
+                            <span>减小音量</span>
                         </div>
                     </div>
                 </div>

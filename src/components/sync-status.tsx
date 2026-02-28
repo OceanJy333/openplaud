@@ -1,6 +1,7 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
+import { zhCN } from "date-fns/locale";
 import { AlertCircle, CheckCircle2, Clock, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -41,24 +42,25 @@ export function SyncStatus({
 
     const getStatusText = () => {
         if (isAutoSyncing) {
-            return "Syncing...";
+            return "同步中...";
         }
 
         if (lastSyncResult?.success === false) {
-            return "Sync failed";
+            return "同步失败";
         }
 
         if (lastSyncTime) {
             try {
-                return `Synced ${formatDistanceToNow(lastSyncTime, {
+                return `${formatDistanceToNow(lastSyncTime, {
                     addSuffix: true,
-                })}`;
+                    locale: zhCN,
+                })}同步`;
             } catch {
-                return "Synced recently";
+                return "最近已同步";
             }
         }
 
-        return "Never synced";
+        return "从未同步";
     };
 
     const getNextSyncText = () => {
@@ -71,12 +73,13 @@ export function SyncStatus({
             const diff = nextSyncTime.getTime() - now.getTime();
 
             if (diff < 60000) {
-                return "Next sync soon";
+                return "即将同步";
             }
 
-            return `Next sync ${formatDistanceToNow(nextSyncTime, {
+            return `${formatDistanceToNow(nextSyncTime, {
                 addSuffix: true,
-            })}`;
+                locale: zhCN,
+            })}同步`;
         } catch {
             return null;
         }
@@ -103,8 +106,7 @@ export function SyncStatus({
                     lastSyncResult.newRecordings !== undefined &&
                     lastSyncResult.newRecordings > 0 && (
                         <span className="text-[10px] text-primary">
-                            {lastSyncResult.newRecordings} new recording
-                            {lastSyncResult.newRecordings !== 1 ? "s" : ""}
+                            {lastSyncResult.newRecordings} 条新录音
                         </span>
                     )}
                 {lastSyncResult?.error && (

@@ -1,6 +1,12 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { plaudConnections, recordings, userSettings, users } from "@/db/schema";
+import {
+    plaudConnections,
+    recordings,
+    transcriptions,
+    userSettings,
+    users,
+} from "@/db/schema";
 import { env } from "@/lib/env";
 import { sendNewRecordingBarkNotification } from "@/lib/notifications/bark";
 import { sendNewRecordingEmail } from "@/lib/notifications/email";
@@ -100,28 +106,58 @@ async function processRecording(
             isTrash: plaudRecording.is_trash,
         };
 
+        let localRecordingId: string;
+
         if (existingRecording) {
             // Update existing recording
             await db
                 .update(recordings)
                 .set({ ...recordingData, updatedAt: new Date() })
                 .where(eq(recordings.id, existingRecording.id));
-            return {
-                status: "updated",
-                recordingId: existingRecording.id,
-                filename: plaudRecording.filename,
-            };
+            localRecordingId = existingRecording.id;
+        } else {
+            // Insert new recording
+            const [newRecording] = await db
+                .insert(recordings)
+                .values(recordingData)
+                .returning({ id: recordings.id });
+            localRecordingId = newRecording.id;
         }
 
-        // Insert new recording
-        const [newRecording] = await db
-            .insert(recordings)
-            .values(recordingData)
-            .returning({ id: recordings.id });
+        // Pull Plaud's existing transcription if available
+        if (plaudRecording.is_trans) {
+            try {
+                const [existingTrans] = await db
+                    .select({ id: transcriptions.id })
+                    .from(transcriptions)
+                    .where(eq(transcriptions.recordingId, localRecordingId))
+                    .limit(1);
+
+                if (!existingTrans) {
+                    const plaudText =
+                        await plaudClient.getTranscriptionText(plaudRecording.id);
+                    if (plaudText) {
+                        await db.insert(transcriptions).values({
+                            recordingId: localRecordingId,
+                            userId: context.userId,
+                            text: plaudText,
+                            transcriptionType: "server",
+                            provider: "plaud",
+                            model: "plaud-cloud",
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error(
+                    `Failed to pull Plaud transcription for ${plaudRecording.id}:`,
+                    error,
+                );
+            }
+        }
 
         return {
-            status: "new",
-            recordingId: newRecording.id,
+            status: existingRecording ? "updated" : "new",
+            recordingId: localRecordingId,
             filename: plaudRecording.filename,
         };
     } catch (error) {
@@ -397,4 +433,90 @@ async function queueTranscriptions(
             );
         }
     }
+}
+
+/**
+ * Backfill Plaud transcriptions for existing recordings that don't have one yet.
+ * Only calls Plaud API to fetch text — no audio re-download.
+ */
+export async function backfillPlaudTranscriptions(
+    userId: string,
+): Promise<{ filled: number; errors: string[] }> {
+    const filled: string[] = [];
+    const errors: string[] = [];
+
+    const [connection] = await db
+        .select()
+        .from(plaudConnections)
+        .where(eq(plaudConnections.userId, userId))
+        .limit(1);
+
+    if (!connection) {
+        return { filled: 0, errors: ["No Plaud connection found"] };
+    }
+
+    const plaudClient = await createPlaudClient(
+        connection.bearerToken,
+        connection.apiBase,
+    );
+
+    // Get all recordings that have no transcription
+    const allRecordings = await db
+        .select({
+            id: recordings.id,
+            plaudFileId: recordings.plaudFileId,
+        })
+        .from(recordings)
+        .where(eq(recordings.userId, userId));
+
+    console.log(`[backfill] Processing ${allRecordings.length} recordings`);
+
+    for (const rec of allRecordings) {
+        const [existingTrans] = await db
+            .select({ id: transcriptions.id })
+            .from(transcriptions)
+            .where(eq(transcriptions.recordingId, rec.id))
+            .limit(1);
+
+        if (existingTrans) {
+            console.log(`[backfill] Skip ${rec.plaudFileId}: already has transcription`);
+            continue;
+        }
+
+        try {
+            console.log(`[backfill] Fetching transcription for ${rec.plaudFileId}...`);
+            const detail = await plaudClient.getFileDetail(rec.plaudFileId);
+            const contentList = detail.data?.content_list ?? [];
+            const transItem = contentList.find(
+                (c: { data_type: string }) => c.data_type === "transaction",
+            );
+            console.log(`[backfill] ${rec.plaudFileId}: content_list has ${contentList.length} items, transItem: ${!!transItem}`);
+
+            if (!transItem) {
+                console.log(`[backfill] ${rec.plaudFileId}: no transaction content, skipping`);
+                continue;
+            }
+
+            const text = await plaudClient.getTranscriptionText(rec.plaudFileId);
+            console.log(`[backfill] ${rec.plaudFileId}: text length = ${text?.length ?? 0}`);
+            if (text) {
+                await db.insert(transcriptions).values({
+                    recordingId: rec.id,
+                    userId,
+                    text,
+                    transcriptionType: "server",
+                    provider: "plaud",
+                    model: "plaud-cloud",
+                });
+                filled.push(rec.id);
+                console.log(`[backfill] ${rec.plaudFileId}: saved transcription`);
+            }
+        } catch (error) {
+            const msg = `Failed for ${rec.plaudFileId}: ${error instanceof Error ? error.message : String(error)}`;
+            console.error(`[backfill] ${msg}`);
+            errors.push(msg);
+        }
+    }
+
+    return { filled: filled.length, errors };
 }

@@ -39,14 +39,14 @@ export function RecordingWorkstation({
             );
 
             if (response.ok) {
-                toast.success("Transcription complete");
+                toast.success("转录完成");
                 router.refresh();
             } else {
                 const error = await response.json();
-                toast.error(error.error || "Transcription failed");
+                toast.error(error.error || "转录失败");
             }
         } catch {
-            toast.error("Failed to transcribe recording");
+            toast.error("录音转录失败");
         } finally {
             setIsTranscribing(false);
         }
@@ -55,7 +55,7 @@ export function RecordingWorkstation({
     return (
         <div className="bg-background">
             <div className="container mx-auto px-4 py-6 max-w-4xl">
-                {/* Header */}
+                {/* 头部 */}
                 <div className="flex items-center gap-4 mb-6">
                     <Button
                         onClick={() => router.push("/dashboard")}
@@ -74,7 +74,7 @@ export function RecordingWorkstation({
                     </div>
                 </div>
 
-                {/* Content */}
+                {/* 内容 */}
                 <div className="space-y-6">
                     <RecordingPlayer recording={recording} />
                     <TranscriptionPanel
@@ -84,16 +84,16 @@ export function RecordingWorkstation({
                         onTranscribe={handleTranscribe}
                     />
 
-                    {/* Metadata */}
+                    {/* 元数据 */}
                     <Card>
                         <CardHeader>
-                            <CardTitle>Details</CardTitle>
+                            <CardTitle>详细信息</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                                 <div>
                                     <div className="text-muted-foreground text-xs mb-1">
-                                        Duration
+                                        时长
                                     </div>
                                     <div className="font-medium">
                                         {Math.floor(recording.duration / 60000)}
@@ -105,7 +105,7 @@ export function RecordingWorkstation({
                                 </div>
                                 <div>
                                     <div className="text-muted-foreground text-xs mb-1">
-                                        File Size
+                                        文件大小
                                     </div>
                                     <div className="font-medium">
                                         {(
@@ -117,7 +117,7 @@ export function RecordingWorkstation({
                                 </div>
                                 <div>
                                     <div className="text-muted-foreground text-xs mb-1">
-                                        Device
+                                        设备
                                     </div>
                                     <div className="font-mono text-xs truncate">
                                         {recording.deviceSn}
@@ -125,7 +125,7 @@ export function RecordingWorkstation({
                                 </div>
                                 <div>
                                     <div className="text-muted-foreground text-xs mb-1">
-                                        Date
+                                        日期
                                     </div>
                                     <div className="font-medium">
                                         {new Date(

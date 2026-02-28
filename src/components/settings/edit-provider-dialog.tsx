@@ -77,7 +77,7 @@ const providerPresets = [
     {
         name: "Custom",
         baseUrl: "",
-        placeholder: "Your API key",
+        placeholder: "您的 API Key",
         defaultModel: "",
     },
 ];
@@ -127,12 +127,12 @@ export function EditProviderDialog({
         e.preventDefault();
 
         if (!providerName) {
-            toast.error("Provider name is required");
+            toast.error("请选择服务商");
             return;
         }
 
         if (!provider?.id) {
-            toast.error("Provider ID is missing");
+            toast.error("缺少服务商 ID");
             return;
         }
 
@@ -166,10 +166,10 @@ export function EditProviderDialog({
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || "Failed to update provider");
+                throw new Error(error.error || "更新服务商失败");
             }
 
-            toast.success("AI provider updated successfully");
+            toast.success("AI 服务商已更新");
             onSuccess();
             onOpenChange(false);
 
@@ -183,7 +183,7 @@ export function EditProviderDialog({
             toast.error(
                 error instanceof Error
                     ? error.message
-                    : "Failed to update AI provider",
+                    : "更新 AI 服务商失败",
             );
         } finally {
             setIsLoading(false);
@@ -198,19 +198,19 @@ export function EditProviderDialog({
         <Dialog open={open} onOpenChange={onOpenChange} key={provider.id}>
             <DialogContent className="max-w-md">
                 <DialogHeader>
-                    <DialogTitle>Edit AI Provider</DialogTitle>
+                    <DialogTitle>编辑 AI 服务商</DialogTitle>
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                        <Label>Provider</Label>
+                        <Label>服务商</Label>
                         <Select
                             value={providerName}
                             onValueChange={handleProviderChange}
                             disabled={isLoading}
                         >
                             <SelectTrigger>
-                                <SelectValue placeholder="Select a provider" />
+                                <SelectValue placeholder="选择服务商" />
                             </SelectTrigger>
                             <SelectContent>
                                 {providerPresets.map((preset) => (
@@ -232,7 +232,7 @@ export function EditProviderDialog({
                             type="password"
                             placeholder={
                                 selectedPreset?.placeholder ||
-                                "Enter a new key to replace the current one"
+                                "输入新密钥以替换当前密钥"
                             }
                             value={apiKey}
                             onChange={(e) => setApiKey(e.target.value)}
@@ -242,15 +242,13 @@ export function EditProviderDialog({
                         <div className="text-xs text-muted-foreground flex items-center gap-2">
                             <Shield className="w-3.5 h-3.5 shrink-0" />
                             <span>
-                                For security, the saved API key is never shown.
-                                Leave this blank to keep your current key, or
-                                enter a new key to replace it.
+                                为安全起见，已保存的 API Key 不会显示。留空则保留当前密钥，输入新密钥则替换。
                             </span>
                         </div>
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="baseUrl">Base URL (Optional)</Label>
+                        <Label htmlFor="baseUrl">Base URL（可选）</Label>
                         <Input
                             id="baseUrl"
                             type="text"
@@ -264,7 +262,7 @@ export function EditProviderDialog({
 
                     <div className="space-y-2">
                         <Label htmlFor="defaultModel">
-                            Default Model (Optional)
+                            默认模型（可选）
                         </Label>
                         <Input
                             id="defaultModel"
@@ -287,7 +285,7 @@ export function EditProviderDialog({
                                 }
                                 disabled={isLoading}
                             />
-                            <span>Use for transcription</span>
+                            <span>用于转录</span>
                         </label>
                         <label className="flex items-center gap-2 cursor-pointer">
                             <input
@@ -298,7 +296,7 @@ export function EditProviderDialog({
                                 }
                                 disabled={isLoading}
                             />
-                            <span>Use for AI enhancements</span>
+                            <span>用于 AI 增强</span>
                         </label>
                     </Panel>
 
@@ -309,14 +307,14 @@ export function EditProviderDialog({
                             disabled={isLoading}
                             className="flex-1"
                         >
-                            Cancel
+                            取消
                         </MetalButton>
                         <MetalButton
                             type="submit"
                             disabled={isLoading}
                             className="flex-1"
                         >
-                            {isLoading ? "Updating..." : "Update Provider"}
+                            {isLoading ? "更新中..." : "更新服务商"}
                         </MetalButton>
                     </div>
                 </form>

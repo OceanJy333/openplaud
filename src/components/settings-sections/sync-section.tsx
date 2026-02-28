@@ -15,18 +15,18 @@ import { Switch } from "@/components/ui/switch";
 import { useSettings } from "@/hooks/use-settings";
 
 const syncIntervalPresets = [
-    { label: "1 minute", value: 60 * 1000 },
-    { label: "2 minutes", value: 2 * 60 * 1000 },
-    { label: "5 minutes", value: 5 * 60 * 1000 },
-    { label: "10 minutes", value: 10 * 60 * 1000 },
-    { label: "15 minutes", value: 15 * 60 * 1000 },
-    { label: "30 minutes", value: 30 * 60 * 1000 },
-    { label: "1 hour", value: 60 * 60 * 1000 },
+    { label: "1 分钟", value: 60 * 1000 },
+    { label: "2 分钟", value: 2 * 60 * 1000 },
+    { label: "5 分钟", value: 5 * 60 * 1000 },
+    { label: "10 分钟", value: 10 * 60 * 1000 },
+    { label: "15 分钟", value: 15 * 60 * 1000 },
+    { label: "30 分钟", value: 30 * 60 * 1000 },
+    { label: "1 小时", value: 60 * 60 * 1000 },
 ];
 
 const getSyncIntervalLabel = (value: number) => {
     return (
-        syncIntervalPresets.find((p) => p.value === value)?.label || "Custom"
+        syncIntervalPresets.find((p) => p.value === value)?.label || "自定义"
     );
 };
 
@@ -122,7 +122,7 @@ export function SyncSection() {
                 const prev = previousValues.syncNotifications;
                 if (typeof prev === "boolean") setSyncNotifications(prev);
             }
-            toast.error("Failed to save settings. Changes reverted.");
+            toast.error("保存设置失败，已恢复更改。");
         }
     };
 
@@ -138,17 +138,16 @@ export function SyncSection() {
         <div className="space-y-6">
             <h2 className="text-lg font-semibold flex items-center gap-2">
                 <RefreshCw className="w-5 h-5" />
-                Sync Settings
+                同步设置
             </h2>
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
                     <div className="space-y-0.5 flex-1">
                         <Label htmlFor="auto-sync" className="text-base">
-                            Enable auto-sync
+                            启用自动同步
                         </Label>
                         <p className="text-sm text-muted-foreground">
-                            Automatically sync recordings from your Plaud device
-                            at regular intervals
+                            定时从 Plaud 设备自动同步录音
                         </p>
                     </div>
                     <Switch
@@ -167,7 +166,7 @@ export function SyncSection() {
                 {autoSyncEnabled && (
                     <>
                         <div className="space-y-2">
-                            <Label htmlFor="sync-interval">Sync interval</Label>
+                            <Label htmlFor="sync-interval">同步间隔</Label>
                             <Select
                                 value={syncInterval.toString()}
                                 onValueChange={(value) => {
@@ -199,7 +198,7 @@ export function SyncSection() {
                                 </SelectContent>
                             </Select>
                             <p className="text-xs text-muted-foreground">
-                                How often to automatically sync recordings
+                                自动同步录音的频率
                             </p>
                         </div>
 
@@ -209,10 +208,10 @@ export function SyncSection() {
                                     htmlFor="sync-on-mount"
                                     className="text-base"
                                 >
-                                    Sync on app load
+                                    启动时同步
                                 </Label>
                                 <p className="text-sm text-muted-foreground">
-                                    Automatically sync when the app first loads
+                                    应用加载时自动同步
                                 </p>
                             </div>
                             <Switch
@@ -234,10 +233,10 @@ export function SyncSection() {
                                     htmlFor="sync-on-visibility"
                                     className="text-base"
                                 >
-                                    Sync on tab visibility
+                                    切回标签页时同步
                                 </Label>
                                 <p className="text-sm text-muted-foreground">
-                                    Sync when you return to the app tab
+                                    返回应用标签页时自动同步
                                 </p>
                             </div>
                             <Switch
@@ -261,10 +260,10 @@ export function SyncSection() {
                             htmlFor="sync-notifications"
                             className="text-base"
                         >
-                            Show sync notifications
+                            显示同步通知
                         </Label>
                         <p className="text-sm text-muted-foreground">
-                            Display notifications when sync completes
+                            同步完成时显示通知
                         </p>
                     </div>
                     <Switch

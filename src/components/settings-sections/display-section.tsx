@@ -16,35 +16,35 @@ import { useSettings } from "@/hooks/use-settings";
 
 const dateTimeFormatOptions = [
     {
-        label: "Relative",
+        label: "相对时间",
         value: "relative",
-        description: "e.g., 2 hours ago",
+        description: "如：2 小时前",
     },
     {
-        label: "Absolute",
+        label: "绝对时间",
         value: "absolute",
-        description: "e.g., Jan 15, 2024 3:45 PM",
+        description: "如：2024年1月15日 15:45",
     },
     {
         label: "ISO",
         value: "iso",
-        description: "e.g., 2024-01-15T15:45:00Z",
+        description: "如：2024-01-15T15:45:00Z",
     },
 ];
 
 const sortOrderOptions = [
-    { label: "Newest first", value: "newest" },
-    { label: "Oldest first", value: "oldest" },
-    { label: "By name", value: "name" },
+    { label: "最新优先", value: "newest" },
+    { label: "最早优先", value: "oldest" },
+    { label: "按名称", value: "name" },
 ];
 
 const themeOptions = [
-    { label: "Light", value: "light" },
-    { label: "Dark", value: "dark" },
+    { label: "浅色", value: "light" },
+    { label: "深色", value: "dark" },
     {
-        label: "System",
+        label: "跟随系统",
         value: "system",
-        description: "Follow system preference",
+        description: "跟随系统主题设置",
     },
 ];
 
@@ -148,7 +148,7 @@ export function DisplaySection() {
                     const prev = previousValues.theme;
                     if (typeof prev === "string") setTheme(prev);
                 }
-                toast.error("Failed to save settings. Changes reverted.");
+                toast.error("保存设置失败，已恢复更改。");
             }
         };
 
@@ -171,11 +171,11 @@ export function DisplaySection() {
         <div className="space-y-6">
             <h2 className="text-lg font-semibold flex items-center gap-2">
                 <Monitor className="w-5 h-5" />
-                Display Settings
+                显示设置
             </h2>
             <div className="space-y-4">
                 <div className="space-y-2">
-                    <Label htmlFor="date-time-format">Date/time format</Label>
+                    <Label htmlFor="date-time-format">日期/时间格式</Label>
                     <Select
                         value={dateTimeFormat}
                         onValueChange={(value) => {
@@ -190,7 +190,7 @@ export function DisplaySection() {
                             <SelectValue>
                                 {dateTimeFormatOptions.find(
                                     (opt) => opt.value === dateTimeFormat,
-                                )?.label || "Relative"}
+                                )?.label || "相对时间"}
                             </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
@@ -213,7 +213,7 @@ export function DisplaySection() {
 
                 <div className="space-y-2">
                     <Label htmlFor="sort-order">
-                        Recording list sort order
+                        录音列表排序方式
                     </Label>
                     <Select
                         value={recordingListSortOrder}
@@ -230,7 +230,7 @@ export function DisplaySection() {
                                 {sortOrderOptions.find(
                                     (opt) =>
                                         opt.value === recordingListSortOrder,
-                                )?.label || "Newest first"}
+                                )?.label || "最新优先"}
                             </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
@@ -247,7 +247,7 @@ export function DisplaySection() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="items-per-page">Items per page</Label>
+                    <Label htmlFor="items-per-page">每页显示数量</Label>
                     <Input
                         id="items-per-page"
                         type="number"
@@ -270,12 +270,12 @@ export function DisplaySection() {
                         }}
                     />
                     <p className="text-xs text-muted-foreground">
-                        Number of recordings to display per page (10-100)
+                        每页显示的录音数量（10-100）
                     </p>
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="theme">Theme</Label>
+                    <Label htmlFor="theme">主题</Label>
                     <Select
                         value={theme}
                         onValueChange={(value) => {
@@ -287,7 +287,7 @@ export function DisplaySection() {
                         <SelectTrigger id="theme" className="w-full">
                             <SelectValue>
                                 {themeOptions.find((opt) => opt.value === theme)
-                                    ?.label || "System"}
+                                    ?.label || "跟随系统"}
                             </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
